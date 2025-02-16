@@ -1,0 +1,162 @@
+\documentclass[notes.tex]{subfiles}
+
+\begin{document}
+
+\setcounter{section}{4}
+\section{Video Lecture (1/22/25)}
+\subsection{Linear Equations}
+
+\begin{definition}[Linear First Order ODE]
+    A first order ODE is \textit{linear} iff it can be written in the form
+    \[
+        a_1(x)y' + a_2(x)y = g(x)
+    \]
+    The \textit{standard form} for a linear first order ODE is
+    \[
+        y' + P(x)y = f(x)
+    \]
+\end{definition}
+We call them linear differential equations because if you have $n$ solutions in a linear combination you have another solution.
+Further reading: Linear differential operator
+
+\begin{definition}[Integrating Factor]
+    Given a first order linear ODE in the form $y' + P(x)y = f(x)$, then a function $\mu$ is an \textit{integrating factor} iff $\mu(x) = e^{\int P(x)dx}$
+\end{definition}
+
+We can solve any first order linear ODE in this standard form by multiplying through by an integrating factor.
+
+\begin{theorem} \label{int_factor}
+    Given a first order linear ODE in the form $y' + P(x)y = f(x)$ with an integrating factor $\mu$ then $y' + P(x)y = f(x) \iff y = \frac{1}{\mu(x)} \int \mu(x)f(x)dx$.
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+        y' + P(x)y = f(x)
+        &\iff \mu(x)(y' + P(x)y) = \mu(x)f(x) \\
+        &\iff \mu(x)y' + e^{\int P(x)dx}P(x)y = \mu(x)f(x) \\
+        &\iff \mu(x)y' + \mu'(x)y = \mu(x)f(x) \\
+        &\iff \frac{d}{dx}(\mu(x)y) = \mu(x)f(x) \\
+        &\iff \mu(x)y = \int \mu(x)f(x)dx \\
+        &\iff y = \frac{1}{\mu(x)} \int \mu(x)f(x)dx
+    \end{align*}
+\end{proof}
+
+\begin{procedure}[Solving first order linear ODEs] ~\par
+    \begin{enumerate}[label = \arabic*)]
+        \item Ensure the equation isn't already separable.
+        \item Write the equation in standard form.
+        \item Find the integrating factor $\mu$.
+        \item Multiply both sides of the equation by $\mu(x)$.
+        \item Reinterpret with the product rule.
+        \item Evaluate the resulting integral.
+    \end{enumerate}
+\end{procedure}
+
+\begin{definition}[Transient Term]
+    A term in a solution to a DE is \textit{transient} iff it goes to $0$ as $x \to \infty$ or $x \to -\infty$. We care about these terms since they often have a small contribution to the solution for large (in magnitude) values of $x$.
+\end{definition}
+
+\begin{example}
+    Given the solution $y = c_1 e^{-x} + c_2 x^2$, then the term $c_1 e^{-x}$ is transient.
+\end{example}
+
+\begin{definition}[Singular Point]
+    Given a first order linear ODE in the form $y' = P(x)y = f(x)$, then $x_0$ is a \textit{singular point} iff $P$ is undefined or discontinuous at $x_0$. In effect, $P$ is poorly behaved as $x \to x_0$
+\end{definition}
+
+\begin{exercise}
+    What are the singular points of $x^2 y' + \cos(x)y = 0$?
+\end{exercise}
+\begin{solution}
+    First we must get the equation in standard form so
+    \begin{align*}
+        x^2 y' + \cos(x)y = 0
+        &\iff y' + \frac{\cos x}{x^2}y = 0
+    \end{align*}
+    So let $P(x) = \frac{\cos x}{x^2}$, notice that $0 \notin \dom P$ so $0$ is a singular point of the equation.
+\end{solution}
+
+\begin{exercise}
+    Solve $xy' - 4y = x^6 e^x$.
+\end{exercise}
+\begin{solution}
+    First, consider that
+    \begin{align*}
+        xy' - 4y = x^6 e^x
+        &\iff xy' = x^6 e^x + 4y
+        \iff y' = \frac{x^6 e^x + 4y}{x}
+    \end{align*}
+    But we cannot factor the RHS, so the equation is not separable. Now we need to put the equation in standard form so
+    \begin{align*}
+        xy' - 4y = x^6 e^x
+        &\iff y' - 4\frac{1}{x}y = x^5 e^x
+    \end{align*}
+    So $P(x) = -4\frac{1}{x}$, now consider $\mu(x) = e^{\int P(x)dx}$ so
+    \begin{align*}
+        \mu(x)
+        &= e^{\int P(x)dx}
+        = e^{\int -4\frac{1}{x}dx}
+        = e^{-4\ln|x|}
+        = (e^{\ln|x|})^{-4}
+        = x^{-4}
+        = \frac{1}{x^4}
+    \end{align*}
+    Now we solve the equation so
+    \begin{align*}
+        y' - 4\frac{1}{x}y = x^5 e^x
+        &\iff \frac{1}{x^4} y' - 4\frac{1}{x^5}y = x e^x
+        \iff \frac{d}{dx}\left( \frac{1}{x^4}y \right) = x e^x \\
+        &\iff \frac{1}{x^4}y = \int x e^x dx
+    \end{align*}
+    Now we need to evaluate the integral on the RHS so let $u = x \iff du = dx$ and $dv = e^x dx \iff v = e^x$
+    \begin{align*}
+        \int x e^x dx
+        &= x e^x - \int e^x dx
+        = C + x e^x - e^x
+    \end{align*}
+    Therefore
+    \begin{align*}
+        \frac{1}{x^4}y = \int x e^x dx
+        &\iff \frac{1}{x^4}y = C + x e^x - e^x \\
+        &\iff y = Cx^4 + x^5 e^x - x^4 e^x
+    \end{align*}
+    So $y = Cx^4 + x^5 e^x - x^4 e^x$ is our solution.
+\end{solution}
+
+\begin{exercise}
+    Solve $y' = x + y$ where $y|_{x = 0} = 4$.
+\end{exercise}
+\begin{solution}
+    This is trivially not separable. Now consider
+    \begin{align*}
+        y' = x + y
+        &\iff y' - y = x
+    \end{align*}
+    So $\mu(x) = e^{\int -dx} = e^{-x}$. Therefore
+    \begin{align*}
+        y' - y = x
+        &\iff e^{-x}y' - e^{-x}y = e^{-x}x \\
+        &\iff \frac{d}{dx}(e^{-x}y) = e^{-x}x \\
+        &\iff e^{-x}y = \int e^{-x}x dx
+    \end{align*}
+    For the integral let $u = x \iff du = dx$ and $dv = e^{-x}dx \iff v = -e^{-x}$
+    \begin{align*}
+        \int e^{-x}x dx
+        &= -x e^{-x} + \int e^{-x}dx
+        = C - x e^{-x} - e^{-x}
+    \end{align*}
+    Therefore
+    \begin{align*}
+        e^{-x}y = \int e^{-x}x dx
+        &\iff e^{-x}y = C - x e^{-x} - e^{-x} \\
+        &\iff y = Ce^x - x - 1
+    \end{align*}
+    Therefore $y = Ce^x - x - 1$ is our general solution. Now consider that
+    \begin{align*}
+        x = 0
+        &\iff 4 = Ce^{0} - 0 - 1 = C - 1
+        \iff C = 5
+    \end{align*}
+    Therefore $y = 5e^x - x - 1$ is our solution to the IVP. Furthermore, notice that $5e^x$ is a transient term so as $x \to -\infty$ we approach the line $y = -x - 1$.
+\end{solution}
+
+\end{document}

@@ -1,0 +1,141 @@
+\documentclass[notes.tex]{subfiles}
+
+\begin{document}
+
+\setcounter{section}{6}
+\section{Lecture (2/3/25)}
+
+\subsection{Thomas Malthus' Population Model}
+Malthus reasoned that the rate of change for a population is directly proportional to the population itself, therefore
+\begin{equation} \label{malthus_pop}
+    \frac{dP}{dt} = kP
+\end{equation}
+Solving \eqref{malthus_pop} by separation we get
+\begin{align*}
+    \frac{dP}{dt} = kP
+    &\iff dP = kPdt
+    \iff \frac{1}{P}dP = kdt
+    \iff \ln|P| = C_0 + kt \\
+    &\iff P = e^{C_0 + kt} = e^{C_0}e^{kt} = Ce^{kt}
+\end{align*}
+Since $\lim_{t\to\infty} P = 0$ or $\lim_{t\to\infty} P = \infty$ then Malthus concluded that population extinction was inevitable. Obviously we exist, so he must be wrong. This is not because his math is not wrong. Rather, his model is only accurate for populations far below the carrying capacity. \\
+A key idea to take away here is that we make certain simplifying assumptions with models, and we also need to relate different quantities to get a DE.
+
+\subsection{Isaac Newton's Law of Cooling}
+Newton observed that the rate that a body cools when placed in a constant ambient temperature is not constant. Rather is it is proportional to the difference to the ambient temperature, therefore
+\begin{equation}
+    \frac{dT}{dt} = k(T - T_0)
+\end{equation}
+where $T_0$ is the ambient temperature.
+
+\begin{exercise}
+    A cake is pulled from a $200\si{\celsius}$ oven and  placed in a $20\si{\celsius}$ room to cool. Three minutes later, the cake is $160\si{\celsius}$. How long will it take for the cake to reach $24\si{\celsius}$?
+\end{exercise}
+\begin{solution}
+    Consider that the ambient temperature is $20\si{\celsius}$ so
+    \begin{align*}
+        \frac{dT}{dt} = k(T - 20)
+        &\iff dT = k(T - 20)dt
+        \iff \frac{1}{T - 20}dT = kdt \\
+        &\iff \ln|T - 20| = C_0 + kt
+        \iff T - 20 = e^{C_0 + kt} = Ce^{kt} \\
+        &\iff T = Ce^{kt} + 20
+    \end{align*}
+    Now consider that
+    \begin{align*}
+        t = 0
+        &\iff 200 = Ce^{0k} + 20
+        \iff 200 = C + 20
+        \iff C = 180 \\
+        &\iff T = 180e^{kt} + 20
+    \end{align*}
+    and at three minutes that
+    \begin{align*}
+        t = 3
+        &\iff 160 = 180e^{3k} + 20
+        \iff 140 = 180e^{3k}
+        \iff \frac{7}{9} = e^{3k} \\
+        &\iff \ln\left(\frac{7}{9}\right) = 3k
+        \iff k = \frac{1}{3}\ln\left(\frac{7}{9}\right) \\
+        &\iff T = 180e^{\frac{1}{3}\ln\left(\frac{7}{9}\right)t} + 20
+    \end{align*}
+    Now we want to find when the cake will reach $24\si{\celsius}$ so
+    \begin{align*}
+        T = 24
+        &\iff 24 = 180e^{\frac{1}{3}\ln\left(\frac{7}{9}\right)t} + 20
+        \iff 4 = 180e^{\frac{1}{3}\ln\left(\frac{7}{9}\right)t} \\
+        &\iff \frac{1}{45} = e^{\frac{1}{3}\ln\left(\frac{7}{9}\right)t}
+        \iff \ln\left(\frac{1}{45}\right) = \frac{1}{3}\ln\left(\frac{7}{9}\right)t \\
+        &\iff t = \frac{3\ln\left(\frac{1}{45}\right)}{\ln\left(\frac{7}{9}\right)} \approx 45.4\si{\min}
+    \end{align*}
+\end{solution}
+Note if that feels like a long time, read the problem again.
+
+\subsection{Mixing Problems}
+In these problems, we are mixing a solute into a solution inside of a tank. We have a constant flow of solution in, a constant flow of solution out. We also assume that the tank is always homogenously mixed. An example would be starting with pure water and pumping brine in. \\
+A tank with initial concentration of solute and initial volume of solution has added to it a stream of solution with some fixed concentration of solute and the solution in the tank is pumped out at a constant rate. We want to find the amount of solute that is pumped out at any time $t$. \\
+The variables we want to track are
+\begin{enumerate}[label = \textbullet]
+    \item Volume $V$ of solution in tank (variable)
+    \item Flow rate $\frac{dV_{\mathrm{in}}}{dt}$ in (constant)
+    \item Flow rate $\frac{dV_{\mathrm{out}}}{dt}$ out (constant)
+    \item Output concentration (variable)
+    \item Input concentration (constant)
+\end{enumerate}
+Notice that
+\begin{align*}
+    \frac{dV}{dt} = \frac{dV_{\mathrm{in}}}{dt} - \frac{dV_{\mathrm{out}}}{dt}
+    &\iff V = V_0 + \left( \frac{dV_{\mathrm{in}}}{dt} - \frac{dV_{\mathrm{out}}}{dt} \right)
+\end{align*}
+Let $A$ be the amount of solute in the tank at time $t$, notice that this will be equal to the amount of solute flowing out of the tank at time $t$, which is what we want to find. Now let $\frac{dA_{\mathrm{in}}}{dt}$ and $\frac{dA_{\mathrm{out}}}{dt}$ be the amount of solute flowing in and out of the tank at time $t$, respectively. Now consider that
+\[
+    \frac{dA}{dt} = \frac{dA_{\mathrm{in}}}{dt} - \frac{dA_{\mathrm{out}}}{dt}
+\]
+Notice that both $\frac{dA_{\mathrm{in}}}{dt}$ and $\frac{dA_{\mathrm{out}}}{dt}$ can be written as the concentration $\rho$ times the rate of flow $\frac{dV}{dt}$, therefore
+\[
+    \frac{dA}{dt} = \rho_{\mathrm{in}}\frac{dV_{\mathrm{in}}}{dt} - \rho_{\mathrm{out}}\frac{dV_{\mathrm{out}}}{dt}
+\]
+But notice that the concentration of the outflow is the same as the concentration in the tank $\frac{A}{V}$, therefore our final model is
+\[
+    \frac{dA}{dt} = \rho_{\mathrm{in}}\frac{dV_{\mathrm{in}}}{dt} - \frac{A}{V}\frac{dV_{\mathrm{out}}}{dt}
+\]
+
+\begin{exercise}
+    A big tank holds $300\us{\gal}$ of brine. Brine is being pumped in at $3\frac{\us{\gal}}{\si{\min}}$ with a salt concentration of $2\frac{\us{\lb}}{\us{\gal}}$. The solution is being pumped out at $3\frac{\us{\gal}}{\si{\min}}$. Initially, there are $50\us{\lb}$ of salt in the tank. Find the amount of salt being pumped out at any time $t$.
+\end{exercise}
+\begin{solution}
+    First, consider that $V_0 = 300$ and that
+    \begin{align*}
+        V
+        &= V_0 + \left( \frac{dV_{\mathrm{in}}}{dt} - \frac{dV_{\mathrm{out}}}{dt} \right)
+        = 300 + (3 - 3)
+        = 300
+    \end{align*}
+    Now consider the model as
+    \begin{align*}
+        &\frac{dA}{dt}
+        = \frac{dA_{\mathrm{in}}}{dt} - \frac{dA_{\mathrm{out}}}{dt}
+        = 2\cdot 3 - 3 \frac{A}{V}
+        = 6 - \frac{1}{100}A
+        = \frac{600 - A}{100} \\
+        &\iff dA = \frac{600 - A}{100}dt
+        \iff \frac{100}{600 - A}dA = dt \\
+        &\iff -100\ln|600 - A| = C_0 + t \\
+        &\iff \ln|600 - A| = -\frac{C_0}{100} - \frac{t}{100} \\
+        &\iff 600 - A = e^{-\frac{C_0}{100} - \frac{t}{100}} = e^{-\frac{C_0}{100}}e^{-\frac{t}{100}} \\
+        &\iff A = 600 + Ce^{-\frac{t}{100}}
+    \end{align*}
+    Now consider that
+    \begin{align*}
+        t = 0
+        &\iff 50 = 600 + Ce^{-\frac{0}{100}} = 600 + C
+        \iff C = -550
+    \end{align*}
+    Therefore we have
+    \[
+        A = 600 - 550e^{-\frac{t}{100}}
+    \]
+\end{solution}
+In many of these problems we talk about the amount of solute, not solution.
+
+\end{document}

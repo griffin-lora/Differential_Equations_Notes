@@ -1,0 +1,57 @@
+\documentclass[notes.tex]{subfiles}
+
+\begin{document}
+
+\setcounter{section}{0}
+\section{Lecture (01/09/25)}
+
+\subsection{What are differential equations?}
+\begin{definition}[Differential Equation]
+    A \textit{differential equation} (DE) relates derivatives of some unknown function. \textit{Solving} a differential equation means finding a function that satisfies the equation.
+\end{definition}
+
+\begin{example}
+    $y' - y = 0$ is a first order constant coefficient linear ordinary DE.
+\end{example}
+
+\subsection{Classification of DEs}
+The two high-level classifications are ordinary DEs (ODEs) and partial DEs (PDEs), ODEs have single variate function solutions and PDEs have multi variate function solutions. We only care about ODEs in this class.
+
+\begin{definition}[Order of a DE]
+    An ODE has \textit{order} $n \in \mathbb{Z}$, $n > 0$ iff the highest order derivative of $y$ in the DE is order $n$.
+\end{definition}
+
+\begin{example}
+    $y'' + 4y = 0$ is an order two ODE.
+\end{example}
+\begin{example}
+    $\frac{d^4 y}{dx^4} = \cos x$ is an order four ODE.
+\end{example}
+
+\begin{definition}[Linearity] \label{linear_ode}
+    An ODE of order $n$ is \textit{linear} iff the ODE can be written in the form:
+    \[
+        \sum_{i = 0}^n a_i(x)\frac{d^i y}{dx^i} = g(x)
+    \]
+    Where $[ a_i ]_{i = 0}^n$ are the \textit{coefficient functions} and $g$ is the \textit{driver function} of the ODE.
+\end{definition}
+
+Note that the driver function is also sometimes just referred to as the RHS. The name comes from it usually being an ``addition" of external force in application problems.
+
+\begin{example}
+    From earlier, $\frac{d^4 y}{dx^4} = \cos x$ has coefficient functions $a_4(x) = 1$, $a_3(x) = a_2(x) = a_1(x) = a_0(x) = 0$ and a driver function $g(x) = \cos x$.
+\end{example}
+
+Any nonlinear operation the $y$ or dependent variable (or its derivatives) is going to mean the ODE is nonlinear so $\cos y$, $y' y$, $e^y$, etc.
+
+\begin{example}
+    $4x \frac{dy}{dx} - x = 5y$ is an order one linear ODE.
+\end{example}
+\begin{example}
+    $\frac{d^5y}{dx^5} + e^x y = 5\frac{d^2 y}{dx^2}$ is an order five linear ODE.
+\end{example}
+\begin{example}
+    $y^2 + y' = 4\ln x$ is an order one nonlinear ODE.
+\end{example}
+
+\end{document}

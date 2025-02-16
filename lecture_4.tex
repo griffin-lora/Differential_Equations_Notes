@@ -1,0 +1,195 @@
+\documentclass[notes.tex]{subfiles}
+
+\begin{document}
+
+\setcounter{section}{5}
+\section{Lecture (1/29/25)}
+
+\subsection{Bernoulli Equations}
+\begin{definition}[Bernoulli Equation]
+    A first order ODE is a \textit{Bernoulli equation} iff it can be written in the form
+    \[
+        y' + P(x)y = f(x)y^\alpha
+    \]
+    where $\alpha \in \mathbb{R}$ such that $\alpha \neq 0, 1$.
+\end{definition}
+Note that these are almost linear equations, we need to make a substitution to change them into linear equations to solve them.
+\begin{procedure}[Solving Bernoulli equations] ~\par
+    \begin{enumerate}[label = \arabic*)]
+        \item Let $u = y^{1 - n}$.
+        \item Find $y$ and $y'$ in terms of $u$.
+        \item Plug $u$ into the ODE.
+        \item Solve as a first order linear ODE.
+    \end{enumerate}
+\end{procedure}
+
+\begin{exercise}
+    Solve $xy' + y = x^2y^2$
+\end{exercise}
+\begin{solution}
+    First we need to write this in the standard form of a Bernoulli equation so
+    \begin{align*}
+        xy' + y = x^2y^2
+        &\iff y' + \frac{y}{x} = xy^2
+    \end{align*}
+    Therefore it is Bernoulli and we let $u = y^{-1}$ and consider 
+    \begin{align*}
+        u = y^{-1}
+        &\iff y = u^{-1}
+        \iff y' = \frac{dy}{dx} = \frac{du}{dy}\frac{du}{dx} = -u^{-2}u'
+    \end{align*}
+    Plugging back in we get
+    \begin{align*}
+        y' + \frac{y}{x} = xy^2
+        &\iff -u^{-2}u' + \frac{u^{-1}}{x} = xu^{-2}
+        \iff u' - \frac{u}{x} = -x
+    \end{align*}
+    Now consider
+    \begin{align*}
+        \mu(x)
+        &= e^{\int -\frac{1}{x} dx}
+        = e^{-\ln|x|}
+        = \frac{1}{x}
+    \end{align*}
+    Finally
+    \begin{align*}
+        u' - \frac{u}{x} = -x
+        &\iff \frac{1}{x}u' - \frac{u}{x^2} = -1
+        \iff \frac{d}{dx}\left( \frac{1}{x}u \right) = -1 \\
+        &\iff \frac{1}{x}u = \int -dx = C - x \\
+        &\iff u = Cx - x^2
+        \iff y^{-1} = Cx - x^2 \\
+        &\iff y = \frac{1}{Cx - x^2}
+    \end{align*}
+\end{solution}
+
+\subsection{Homogenous Equations}
+
+\begin{definition}[Homogenous Function]
+    Given $S \subseteq \mathbb{R}^2$, then $f\colon S \to \mathbb{R}$ is a \textit{homogenous function} of \textit{order} $\alpha \in \mathbb{R}$ iff
+    \[
+        f(tx, ty) = t^\alpha f(x, y)
+    \]
+    for all $t \in \mathbb{R}^+$ where $(tx, ty) \in S$.
+\end{definition}
+
+\begin{exercise}
+    Is $f(x, y) = 5xy + \frac{x^4}{y^2}$ homogenous?
+\end{exercise}
+\begin{proof}
+    \begin{align*}
+        f(tx, ty)
+        &= 5t^2xy + \frac{t^4x^4}{t^2y^2}
+        = 5t^2xy + \frac{t^2x^4}{y^2}
+        = t^2\left( 5xy + \frac{x^4}{y^2} \right)
+        = t^2 f(x, y)
+    \end{align*}
+    Therefore $f$ is homogenous of order $2$.
+\end{proof}
+
+\begin{exercise}
+    Is $g(x, y) = \ln(x^2 + y^2)$ homogenous?
+\end{exercise}
+\begin{proof}
+    \begin{align*}
+        g(tx, ty)
+        &= \ln(t^2x^2 + t^2y^2)
+        = \ln(t^2(x^2 + y^2))
+        \neq t^2\ln(x^2 + y^2)
+         = g(x, y)
+    \end{align*}
+    Therefore $g$ is not homogenous.
+\end{proof}
+
+\begin{exercise} \label{homogenous_archetype}
+    Is $h(x, y) = 3x^5 + 2x^2y^3 - 6y^5$ homogenous?
+\end{exercise}
+\begin{proof}
+    \begin{align*}
+        h(tx, ty)
+        &= 3t^5x^5 + 2t^5x^2y^3 - 6t^5y^5
+        = t^5(3x^5 + 2x^2y^3 - 6y^5)
+        = t^5 h(x, y)
+    \end{align*}
+    Therefore $h$ is homogenous of order $5$.
+\end{proof}
+
+$h$ in \cref{homogenous_archetype} is actually the archetype of homogenous functions, as it is a polynomial with all terms having a uniform degree. \\
+Note that in differential geometry, surfaces formed by homogenous functions will have self-similarity.
+
+\begin{definition}[Homogenous Equation]
+    A first order ODE in the form $P(x, y)dx + Q(x, y)dy = 0$ is a \textit{homogenous equation} of \textit{order} $\alpha$ iff $P$ and $Q$ are both homogenous of order $\alpha$.
+\end{definition}
+\begin{procedure}[Solving homogenous equations] ~\par
+    \begin{enumerate}[label = \arabic*)]
+        \item Let either $y = ux$ or $x = vy$, depending on the difficulty of the factor in front of the differential.
+        \item Calculate the differential.
+        \item Plug into the ODE.
+        \item Solve the resulting separable ODE.
+    \end{enumerate}
+\end{procedure}
+
+\begin{exercise}
+    Solve $(x^2 + y^2)dx + (x^2 - xy)dy = 0$
+\end{exercise}
+\begin{solution}
+    First we should check homogeneity so
+    \begin{tabularx}{\textwidth}{X X}
+        \begin{align*}
+        P(tx, ty) = (t^2x^2 + t^2y^2) = t^2(x^2 + y^2) = tP(x, y)
+        \end{align*}
+        &
+        \begin{align*}
+        Q(tx, ty) = (t^2x^2 - t^2xy) = t^2(x^2 - xy) = tQ(x, y)
+        \end{align*}
+    \end{tabularx}
+    Therefore we let $x = vy$, since both terms are of equal difficulty, then
+    \begin{align*}
+        x = vy \iff v = \frac{x}{y} \iff dx = d(vy) = ydv + vdy
+    \end{align*}
+    Plugging into the equation we get
+    \begin{align*}
+        &(x^2 + y^2)dx + (x^2 - xy)dy = 0 \\
+        &\iff (v^2y^2 + y^2)(ydv + vdy) + (v^2y^2 - vy^2)dy = 0 \\
+        &\iff v^2y^3dv + v^3y^2dy + y^3dv + vy^2dy + (v^2y^2 - vy^2)dy = 0 \\
+        &\iff (v^2y^3 + y^3)dv + (v^3y^2 + vy^2 + v^2y^2 - vy^2)dy = 0 \\
+        &\iff y^3(v^2 + 1)dv + y^2(v^3 + v + v^2 - v)dy = 0 \\
+        &\iff y^3(v^2 + 1)dv + y^2(v^3 + v^2)dy = 0 \\
+        &\iff y^3(v^2 + 1)dv = -y^2(v^3 + v^2)dy \\
+        &\iff \frac{v^2 + 1}{v^3 + v^2}dv = -\frac{1}{y}dy \\
+        &\iff \int \frac{v^2 + 1}{v^3 + v^2}dv = \int -\frac{1}{y}dy = C - \ln|y|
+    \end{align*}
+    Now we need to do PFD on the LHS so
+    \begin{align*}
+        &\int \frac{v^2 + 1}{v^3 + v^2}dv = \int \frac{v^2 + 1}{v^2(v + 1)}dv = \int \left( \frac{A}{v^2} + \frac{B}{v} + \frac{C}{v + 1} \right)dv \\
+        &\iff A(v + 1) + Bv(v + 1) + Cv^2 = v^2 + 1 \\
+        &\iff Av + A + Bv^2 + Bv + Cv^2 = v^2 + 1 \\
+        &\iff (B + C)v^2 + (A + B)v + A = v^2 + 1 \\
+        &\iff A = 1
+        \iff A + B = 0
+        \iff B = -A
+        \iff B = -1 \\
+        &\iff B + C = 1
+        \iff C = 1 - B = 2 \\
+        &\iff \int \frac{v^2 + 1}{v^3 + v^2}dv = \int \left( \frac{1}{v^2} - \frac{1}{v} + \frac{2}{v + 1} \right)dv = -\frac{1}{v} - \ln|v| + 2\ln|v + 1|
+    \end{align*}
+    Therefore
+    \begin{align*}
+        \int \frac{v^2 + 1}{v^3 + v^2}dv = C - \ln|y|
+        &\iff -\frac{1}{v} - \ln|v| + 2\ln|v + 1| = C - \ln|y| \\
+        &\iff -\frac{y}{x} - \ln\left|\frac{x}{y}\right| + 2\ln\left|\frac{x}{y} + 1\right| = C - \ln|y|
+    \end{align*}
+\end{solution}
+
+\subsection{Checking Difficulty}
+The difficulty of first order ODEs in order from easiest to hardest generally follows as
+\begin{enumerate}[label = \arabic*)]
+    \item Separable
+    \item Linear
+    \item Bernoulli
+    \item Exact
+    \item Homogenous
+\end{enumerate}
+Note that the last three are of more comparable difficulty than the first two.
+
+\end{document}

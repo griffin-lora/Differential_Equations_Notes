@@ -1,0 +1,186 @@
+\documentclass[notes.tex]{subfiles}
+\externaldocument{lecture_1} 
+
+\begin{document}
+
+\setcounter{section}{7}
+\section{Lecture (2/12/25)}
+
+\subsection{Linear IVPs and BVPs}
+Recall \cref{linear_ode}. However, $g$ and $[ a_i ]_{i = 0}^n$ are not necessarily linear, so why would we call these linear?
+
+\begin{theorem}[Existence and Uniqueness for Order $n$ Linear ODEs]
+    \label{eu_linear}
+    Given the order $n$ linear IVP
+    \[
+        \sum_{i = 0}^n a_i(x)\frac{d^i y}{dx^i} = g(x)
+    \]
+    with initial conditions at $x = x_0$ of
+    \[
+        \left[ \frac{d^i y}{dx^i} = y_i \right]_{i = 0}^n
+    \]
+    where there exists an interval $I$ such that
+    \begin{enumerate}[label = \arabic*)]
+        \item $g$ is continuous on $I$;
+        \item $[ a_i ]_{i = 0}^n$ are continuous on $I$; and
+        \item $a_n(x) \neq 0$ on $I$,
+    \end{enumerate}
+    then there exists a unique solution for the IVP on $I$.
+\end{theorem}
+
+\begin{exercise}
+    Verify that $y = 3e^{2x} + e^{-2x} - 3x$ is the unique solution to $y'' - 4y = 12x$ given that $x = 0 \implies y = 4, y' = 1$.
+\end{exercise}
+\begin{proof}
+    First consider that
+    \begin{align*}
+        y'' - 4y
+        &= \frac{d}{dx}(6e^{2x} - 2e^{-2x} - 3) - 4(3e^{2x} + e^{-2x} - 3x) \\
+        &= 12e^{2x} + 4e^{2x} - 12e^{2x} + 4e^{-2x} + 12x \\
+        &= 12x
+    \end{align*}
+    Also consider that
+    \begin{align*}
+        x = 0
+        &\implies 4 = 3e^{0} + e^{0} - 3(0) = 3 + 1 = 4 \\
+        &\implies 1 = 6e^{0} - 2e^{0} - 3 = 6 - 2 - 3 = 1
+    \end{align*}
+    But notice that $a_2(x) = 1$, $a_1(x) = 0$, $a_0(x) = -4$, $g(x) = 12x$ and consider that $g, a_0, a_1, a_2$ are continuous on $(-\infty, \infty)$ and $a_2(x) \neq 0$ on $(-\infty, \infty)$. Therefore, by \cref{eu_linear}, this solution is unique.
+\end{proof}
+
+\begin{definition}[Linear Boundary Value Problem of Order $2$]
+    An order $2$ linear ODE of the form
+    \[
+        a_2(x)y'' + a_1(x)y' + a_0(x)y = g(x)
+    \]
+    is a \textit{boundary value problem} iff it has \textit{boundary conditions} of the form
+    \begin{align*}
+        x = a \implies y = y_0 \\
+        x = b \implies y = y_1
+    \end{align*}
+\end{definition}
+These are the type of value problems that are much more applicable than IVPs. But both of these come from the necessity of the non-injectivity of differentation that is involved in DEs. IVPs usually emerge when your dependent variable is time, while BVPs usually emerge when the dependent variable is spatial. However, BVPs usually do not have unique solution.
+
+\begin{exercise} \label{pos_lin_ode}
+    Show that $x = c_1\cos(4t) + c_2\sin(4t)$ solves the ODE $x'' + 16x = 0$
+\end{exercise}
+\begin{proof}
+    \begin{align*}
+        x'' + 16x
+        &= \frac{d}{dx}(-4c_1\sin(4t) + 4c_2\cos(4t)) + 16(c_1\cos(4t) + c_2\sin(4t)) \\
+        &= -16c_1\cos(4t) - 16c_2\sin(4t) + 16c_1\cos(4t) + 16c_2\sin(4t) \\
+        &= 0
+    \end{align*}
+\end{proof}
+Differential equations of this form are always solved by linear combinations of $\cos$ and $\sin$ since the null space of the linear differential operator in this case is always $2$-dimensional.
+
+\begin{exercise}
+    Given the solution in \cref{pos_lin_ode}, find the solution curves for the boundary conditions $x|_{t = 0} = 0$ and $x|_{t = \frac{\pi}{2}} = 0$
+\end{exercise}
+\begin{solution}
+    \begin{align*}
+        x &= 0 \implies 0 = c_1\cos(0) + c_2\sin(0) = c_1 \\
+        x &= \frac{\pi}{2} \implies 0 = c_1\cos(2\pi) + c_2\sin(2\pi) = c_1
+    \end{align*}
+    Therefore the infinite family of solution curves are of the form $x = c_2\sin(4t)$.
+\end{solution}
+
+\begin{exercise}
+    Given the ODE in \cref{pos_lin_ode}, find the solution curves for the boundary conditions of $x|_{t = 0} = 0$ and $x|_{t = \frac{\pi}{8}} = 0$
+\end{exercise}
+\begin{solution}
+    \begin{align*}
+        x &= 0 \implies 0 = c_1\cos(0) + c_2\sin(0) = c_1 \\
+        x &= \frac{\pi}{8} \implies 0 = c_1\cos\left(\frac{\pi}{2}\right) + c_2\cos\left(\frac{\pi}{2}\right) = c_2
+    \end{align*}
+    Therefore the unique solution curve is $x = 0$.
+\end{solution}
+Boundary conditions kinda suck in comparison to initial conditions.
+
+\subsection{Linear Differential Operators}
+\begin{definition}[Differential Operator]
+    The \textit{differential operator} $D$ is a linear map between differentiable function spaces such that $Df = f'$.
+\end{definition}
+The basis for the function space (domain and codomain) of $D$ could be real/complex polynomials. However, when we don't have that we can use the analyticity of the differentiable function space to get a ``polynomial".
+
+\begin{definition}[Linear Differential Operator]
+    $L$ is a \textit{linear differential operator} of \textit{order} $n$ iff it can be written in the form
+    \[
+        L = \sum_{i = 0}^n a_i D^i
+    \]
+\end{definition}
+Notice that we can express a linear differential operator in a few different ways:
+\begin{enumerate}[label = \arabic*)]
+    \item in terms of the input $f$
+    \[
+        Lf = \sum_{i = 0}^n a_i D^i f
+    \]
+    \item in terms of $f$ with some variable $x$
+    \[
+        (Lf)(x) = \sum_{i = 0}^n a_i(x) (D^i f)(x)
+    \]
+    \item in terms of $y = f(x)$
+    \[
+        Ly = \sum_{i = 0}^n a_i(x) \frac{d^iy}{dx^i}
+    \]
+\end{enumerate}
+\begin{lemma}
+    A linear differential operator $L$ is a linear map between $n$-differentiable function spaces.
+\end{lemma}
+\begin{proof}
+    For additivity
+    \begin{align*}
+        L(f + g)
+        &= \sum_{i = 0}^n a_i D^i (f + g)
+        = \sum_{i = 0}^n (a_i D^i f + a_i D^i g)
+        = \sum_{i = 0}^n a_i D^i f + \sum_{i = 0}^n a_i D^i g
+        = Lf + Lg
+    \end{align*}
+    For homogeneity
+    \begin{align*}
+        L(\lambda f)
+        &= \sum_{i = 0}^n a_i D^i (\lambda f)
+        = \sum_{i = 0}^n a_i \lambda D^i f
+        = \lambda\sum_{i = 0}^n a_i D^i f = \lambda L(f)
+    \end{align*}
+    Therefore $L$ is a linear map.
+\end{proof}
+
+\begin{example}
+    Consider the map $F$ such that $Fy = \frac{d^2}{dx^2}(xy)$. But notice that by the product rule, $F$ is not a linear map.
+\end{example}
+Therefore a linear differential operator is precisely the maximum extent of linearity we can get from a differential operator. Notice that a linear differential operator is a polynomial over $D$ with differentiable function coefficient terms.
+
+\subsection{Linear Homogeneity}
+\begin{definition}[Linear Homogeneity]
+    A linear ODE of order $n$ is \textit{homogeneous} iff $g(x) = 0$ for all $x \in \dom g$.
+\end{definition}
+\begin{lemma}
+    A linear ODE is homogeneous iff it can be written in the form
+    \[
+        \sum_{i = 0}^n a_i(x)\frac{d^i y}{dx^i} = 0
+    \]
+\end{lemma}
+\begin{lemma}
+    A linear ODE is homogeneous iff it can be written in the form
+    \[
+        Ly = 0
+    \]
+    where $L$ is the linear differential operator for the RHS of the ODE.
+\end{lemma}
+Now notice that if we find the null space of the linear differential operator, we find the solution space for the homogenous ODE.
+
+\begin{theorem}[Superposition of Homogenous ODEs]
+    If we have a homogenous ODE $Ly = 0$ where $y_1$ and $y_2$ solve the ODE then $c_1y_1 + c_2y_2$ also solves the ODE.
+\end{theorem}
+\begin{proof}
+    Notice that $y_1$ and $y_2$ solves the ODE iff $Ly_1 = Ly_2 = 0$
+    \begin{align*}
+        L(c_1y_1 + c_2y_2)
+        &= c_1L(y_1) + c_2L(y_2)
+        = 0
+    \end{align*}
+    Therefore $c_1y_1 + c_2y_2$ solves the ODE.
+\end{proof}
+
+\end{document}
