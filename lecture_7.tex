@@ -92,15 +92,14 @@ Therefore the dimension of the solution space is precisely the order of the ODE.
 \end{definition}
 
 % Not sure if this is the case
-\begin{theorem} \label{particular_solution_exists}
-    Given a linear ODE, then the ODE has a particular solution $f_p$. 
-\end{theorem}
+% \begin{theorem} \label{particular_solution_exists}
+%     Given a linear ODE, then the ODE has a particular solution $f_p$. 
+% \end{theorem}
 
 \begin{lemma}
-    Given a homogeneous linear ODE of order $n$ in the form $Lf = g$ and a particular solution $f_p$, then $L(f_0) = g$ iff $f_0 = f_n + f_p$ for some $f_n \in \nul L$.
+    Given a homogeneous linear ODE of order $n$ in the form $Lf = g$, a particular solution $f_p$, and $f_0 = f_n + f_p$ where $f_n \in \nul L$, then $L(f_0) = g$.
 \end{lemma}
 \begin{proof}
-    For the first direction, let $f_0 = f_n + f_p$ for some $f_n \in \nul L$, then
     \begin{align*}
         L(f_0)
         &= L(f_n + f_p)
@@ -108,7 +107,6 @@ Therefore the dimension of the solution space is precisely the order of the ODE.
         = 0 + g
         = g
     \end{align*}
-    For the second direction, let $L(f_0) = g$.
 \end{proof}
 
 \end{document}
