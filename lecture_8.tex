@@ -105,6 +105,35 @@ This formula should be memorized.
     Therefore $y_p = \frac{5}{2}e^{3x}$ so the general solution is $y = c_1e^x + c_2e^{3x} + \frac{5}{2}e^{3x}$.
 \end{solution}
 
-Notice that we ``guessed" the form of $y_p$ in \cref{constant_coeff_example}. This is not strictly necessary given certain conditions.
+\subsection{Digression on Constant Coefficients}
+Notice that we ``guessed" the form of $y_p$ in \cref{constant_coeff_example}. This is not strictly necessary given certain conditions. If we let $g(x) = 5e^{3x}$ then we the associated linear differential operator equation for \cref{constant_coeff_example} is
+\begin{equation} \tag{$\star$} \label{linear_differential_op_eq}
+    D^2 - 3D + 2 = g
+\end{equation}
+We know how to solve homogeneous linear ODEs, so if we can find some $L_0$ such that $L_0(g) = 0$ then we can apply it to both sides of the equation. Finding $L_0$ is now analogous to finding what homogenous linear differential equation $g$ solves.
+
+Consider $L_0 = D - 3$ then
+\begin{align*}
+    L_0(g)
+    &= (D - 3)(g)
+    = g' - 3g
+\end{align*}
+and
+\begin{align*}
+    (g' - 3g)(x)
+    &= 15e^{3x} - 15e^{3x}
+    = 0
+\end{align*}
+Therefore $L_0(g) = 0$ so we can consider multiplying both sides of \eqref{linear_differential_op_eq} by $L_0$ so
+\begin{align*}
+    (L_0)(D^2 - 3D + 2) = L_0(g)
+    &\iff (D - 3)(D^2 - 3D + 2) = 0 \\
+    &\iff D^3 - 3D^2 + 2D - 3D^2 + 9D - 6 = 0 \\
+    &\iff D^3 - 6D^2 + 11D - 6 = 0
+\end{align*}
+
+We now could solve this as an order three homogenous linear ODE to get the particular solution.
+
+This is the general idea for solving all constant coefficient linear ODEs of order $n$.
 
 \end{document}
