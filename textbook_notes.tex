@@ -17,6 +17,17 @@
     Given $S \subseteq \mathbb{R}^2$, then a differential form $P(x, y)dx + Q(x, y)dy$ defined on $S$ is an \textit{exact differential} iff there exists some $f\colon S \to \mathbb{R}$ such that $df(x, y) = P(x, y)dx + Q(x, y)dy$.
 \end{definition}
 
+\begin{definition}[Exact Differential Equation] ~\par
+    An ODE in the form $P(x, y)dx + Q(x, y)dy = 0$ is an \textit{exact differential equation} iff the LHS is an exact differential.
+\end{definition}
+
+\begin{example}
+    $x^2 y^3 dx + x^3 y^2 dy = 0$ is an exact equation since the LHS is an exact differential form by $d\left(\frac{1}{3}x^3 y^3\right) = x^2 y^3 dx + x^3 y^2 dy$
+\end{example}
+
+\begin{theorem} \label{greens_theorem}
+    Given a rectangular region $R \subseteq \mathbb{R}^2$ and functions $P, Q\colon R \to \mathbb{R}$ that have continuous partial derivatives, then $P(x, y)dx + Q(x, y)dy$ is an exact differential iff $Q_x(x, y) = P_y(x, y)$
+\end{theorem}
 \begin{proof}
     For the first direction, we are given that $P(x, y)dx + Q(x, y)dy$ is an exact differential, then consider that there exists $f\colon R \to \mathbb{R}$ such that $df(x, y) = P(x, y)dx + Q(x, y)dy$. By Clairaut's theorem $f_{xy}(x, y) = f_{yx}(x, y)$. Now consider that
     \begin{align*}
@@ -46,18 +57,6 @@
     %     = g'(y) + h(y) + Q(x, y)
     % \end{align*}
 \end{proof}
-
-\begin{definition}[Exact Differential Equation] ~\par
-    An ODE in the form $P(x, y)dx + Q(x, y)dy = 0$ is an \textit{exact differential equation} iff the LHS is an exact differential.
-\end{definition}
-
-\begin{example}
-    $x^2 y^3 dx + x^3 y^2 dy = 0$ is an exact equation since the LHS is an exact differential form by $d\left(\frac{1}{3}x^3 y^3\right) = x^2 y^3 dx + x^3 y^2 dy$
-\end{example}
-
-\begin{theorem} \label{greens_theorem}
-    Given a rectangular region $R \subseteq \mathbb{R}^2$ and functions $P, Q\colon R \to \mathbb{R}$ that have continuous partial derivatives, then $P(x, y)dx + Q(x, y)dy$ is an exact differential iff $Q_x(x, y) = P_y(x, y)$
-\end{theorem}
 
 \begin{exercise}
     Is $\arctan y dx + x dy = 0$ an exact equation?
