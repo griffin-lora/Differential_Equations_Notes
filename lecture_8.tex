@@ -1,0 +1,61 @@
+\documentclass[notes]{subfiles}
+
+\begin{document}
+
+\setcounter{section}{9}
+\section{Lecture (2/19/25)}
+\subsection{Reduction of Order}
+The idea here is that if we are given an order two homogeneous linear ODE, a basis solution $y_1$, then we can find the basis solution $y_2$ such that the general solution is $y = c_1y_1 + c_2y_2$.
+
+We are given an order two homogeneous linear ODE in the form
+\[
+    a_2(x)y'' + a_1(x)y' + a_0(x)y = 0
+\]
+such that $a_2(x) \neq 0$ for all $x \in I$. We are given $y_1$ as a basis solution.
+
+We will now rewrite as
+\begin{align*}
+    a_2(x)y'' + a_1(x)y' + a_0(x)y = 0
+    &\iff y'' + \frac{a_1(x)}{a_2(x)}y' + \frac{a_0(x)}{a_2(x)}y = 0 \\
+    &\iff y'' + P(x)y' + Q(x)y = 0
+\end{align*}
+Now the trick here is to let $y_2 = uy_1$ therefore
+\begin{align*}
+    y_2 = uy_1
+    &\iff y_2' = u'y_1 + uy_1' \\
+    &\iff y_2'' = u''y_1 + u'y_1' + u'y_1' + uy_1'' = u''y_1 + 2u'y_1' + uy_1'' % haha you are a binomial
+\end{align*}
+
+Now we plug $y_2$ in as a solution so
+
+\begin{align*}
+    0
+    &= y_2'' + P(x)y_2' + Q(x)y_2 \\
+    &= (u''y_1 + 2u'y_1' + uy_1'') + P(x)(u'y_1 + uy_1') + Q(x)(uy_1) \\
+    &= u(y_1'' + P(x)y_1' + y_1) + u''y_1 + 2u'y_1' + P(x)(u'y_1) \\
+    &= u''y_1 + 2u'y_1' + P(x)(u'y_1) \\
+    &= y_1u'' + (2y_1' + P(x)y_1)u'
+\end{align*}
+
+To get this in the form of a linear ODE we make the substitution $w = u'$ solution
+
+\begin{align*}
+    y_1w' + (2y_1' + P(x)y_1)w = 0
+    &\iff y_1\frac{dw}{dx} = -(2y_1' + P(x)y_1)w \\
+    &\iff y_1dw = -(2y_1' + P(x)y_1)wdx \\
+    &\iff \frac{1}{w}dw = -\frac{2y_1' + P(x)y_1}{y_1}dx = \left( -\frac{2y_1'}{y_1} - P(x) \right)dx \\
+    &\iff \int \frac{1}{w}dw = -\int \frac{2y_1'}{y_1}dx - \int P(x)dx \\
+    &\iff \ln(w) = -2\ln(y_1) - \int P(x)dx \\
+    &\iff w = e^{-2\ln(y_1)}e^{-\int P(x)dx} = \frac{e^{-\int P(x)dx}}{y_1^2} \\
+    &\iff u = \int \frac{e^{-\int P(x)dx}}{y_1^2} dx
+\end{align*}
+
+Therefore we can now express $y_2$ as
+\[
+    y_2 = y_1\int \frac{e^{-\int P(x)dx}}{y_1^2} dx
+\]
+This formula should be memorized.
+
+
+
+\end{document}
