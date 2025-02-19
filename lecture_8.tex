@@ -45,17 +45,66 @@ To get this in the form of a linear ODE we make the substitution $w = u'$ soluti
     &\iff y_1dw = -(2y_1' + P(x)y_1)wdx \\
     &\iff \frac{1}{w}dw = -\frac{2y_1' + P(x)y_1}{y_1}dx = \left( -\frac{2y_1'}{y_1} - P(x) \right)dx \\
     &\iff \int \frac{1}{w}dw = -\int \frac{2y_1'}{y_1}dx - \int P(x)dx \\
-    &\iff \ln(w) = -2\ln(y_1) - \int P(x)dx \\
-    &\iff w = e^{-2\ln(y_1)}e^{-\int P(x)dx} = \frac{e^{-\int P(x)dx}}{y_1^2} \\
+    &\iff \ln w = -2\ln y_1 - \int P(x)dx \\
+    &\iff w = e^{-2\ln y_1}e^{-\int P(x)dx} = \frac{e^{-\int P(x)dx}}{y_1^2} \\
     &\iff u = \int \frac{e^{-\int P(x)dx}}{y_1^2} dx
 \end{align*}
 
 Therefore we can now express $y_2$ as
-\[
+\begin{equation} \label{reduction_order_formula}
     y_2 = y_1\int \frac{e^{-\int P(x)dx}}{y_1^2} dx
-\]
+\end{equation}
 This formula should be memorized.
 
+\begin{exercise}
+    Consider that $y_1 = x^2$ solves the ODE $x^2y'' - 3xy' + 4y = 0$ on $x \in (0, \infty)$. Find the general solution to the ODE.
+\end{exercise}
+\begin{solution}
+    Since $x \neq 0$ then
+    \begin{align*}
+        x^2y'' - 3xy' + 4y = 0
+        &\iff y'' - \frac{3}{x}y' + \frac{4}{x^2}y = 0
+    \end{align*}
+    Now we consider by \cref{reduction_order_formula}
+    \begin{align*}
+        y_2
+        &= y_1\int \frac{e^{-\int P(x)dx}}{y_1^2} dx
+        = x^2\int \frac{e^{\int \frac{3}{x}dx}}{x^4} dx \\
+        &= x^2\int \frac{e^{3\ln x}}{x^4} dx
+        = x^2\int \frac{x^3}{x^4} dx
+        = x^2\int \frac{1}{x} dx \\
+        &= x^2\ln x
+    \end{align*}
+    Therefore $y = c_1x^2 + c_2x^2\ln x$ solves the ODE most generally.
+\end{solution}
 
+\begin{exercise} \label{constant_coeff_example}
+    Find the general solution to $y'' - 3y' + 2y = 5e^{3x}$ using that a basis solution to $y'' - 3y' + 2y = 0$ is $y_1 = e^x$.
+\end{exercise}
+\begin{solution}
+    Consider that the solution will be in the form $y = y_n + y_p$ where $y_p$ is the particular solution, therefore we first need to find $y_2$ for the homogeneous ODE.
+    \begin{align*}
+        y_2
+        &= y_1\int \frac{e^{-\int P(x)dx}}{y_1^2} dx
+        = e^x\int \frac{e^{\int 3dx}}{e^{2x}} dx \\
+        &= e^x\int \frac{e^{3x}}{e^{2x}} dx
+        = e^x\int e^x dx
+        = e^{2x}
+    \end{align*}
+    So $y_n = c_1e^x + c_2e^{2x}$. Intuitively we can see that the particular solution must be of the form $y_p = Ae^{3x}$. Therefore
+    \begin{align*}
+        y_p' = 3Ae^{3x} && y_p'' = 9Ae^{3x}
+    \end{align*}
+    Now we can plug this into the equation so
+    \begin{align*}
+        9Ae^{3x} - 9Ae^{3x} + 2Ae^{3x} = 5e^{3x}
+        &\iff 2Ae^{3x} = 5e^{3x} \\
+        &\iff 2A = 5
+        \iff A = \frac{5}{2}
+    \end{align*}
+    Therefore $y_p = \frac{5}{2}e^{3x}$ so the general solution is $y = c_1e^x + c_2e^{3x} + \frac{5}{2}e^{3x}$.
+\end{solution}
+
+Notice that we ``guessed" the form of $y_p$ in \cref{constant_coeff_example}. This is not strictly necessary given certain conditions.
 
 \end{document}
