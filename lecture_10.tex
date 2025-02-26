@@ -41,4 +41,125 @@ It is important to remember that the particular solution must be linearly indepe
 
 We can also consider each part of a particular solution separately due to superposition.
 
+\begin{exercise}
+    Solve $y'' - 2y' - 3y = 4x - 5 + 6xe^{2x}$.
+\end{exercise}
+\begin{solution}
+    For the homogeneous equation consider the characteristic polynomial so
+    \begin{align*}
+        0 = m^2 - 2m - 3 = (m - 3)(m + 1)
+        &\iff m = 3, m = -1
+    \end{align*}
+    Therefore $y_n = c_1e^{-x} + c_2e^{3x}$. Now we let $y_p = y_{p_1} + y_{p_2}$ where
+    
+    $y_{p_1} = Ax + B$ and $y_{p_2} = (Cx + D)e^{2x}$.
+
+    For $y_{p_1}$
+    \[
+        y_{p_1}' = A \quad \text{and} \quad y_{p_1}'' = 0
+    \]
+    Therefore
+    \begin{align*}
+        &y_{p_1}'' - 2y_{p_1}' - 3y_{p_1} = 4x - 5 \\
+        \iff& -2A - 3(Ax + B) = 4x - 5 \\
+        \iff& -3Ax + (-2A - 3B) = 4x - 5 \\
+        \iff& -3A = 4 \iff A = -\frac{4}{3} \\
+        \iff& \frac{8}{3} - 3B = -5 \iff 3B = \frac{8}{3} + 5 = \frac{23}{3} \iff B = \frac{23}{9} \\
+        \iff& y_{p_1} = -\frac{4}{3}x + \frac{23}{9}
+    \end{align*}
+    For $y_{p_2}$
+    \[
+        y_{p_2}' = Ce^{2x} + 2(Cx + D)e^{2x} = (2Cx + C + 2D)e^{2x}
+    \]
+    and
+    \[
+        y_{p_2}'' = 2Ce^{2x} + 2(2Cx + C + 2D)e^{2x} = (4Cx + 4C + 4D)e^{2x}
+    \]
+    Therefore
+    \begin{align*}
+        &y_{p_2}'' - 2y_{p_2}' - 3y_{p_2} = 6xe^{2x} \\
+        \iff& (4Cx + 4C + 4D)e^{2x} - 2(2Cx + C + 2D)e^{2x} - 3(Cx + D)e^{2x} = 6xe^{2x} \\
+        \iff& 4Cx + 4C + 4D - 2(2Cx + C + 2D) - 3(Cx + D) = 6x \\
+        \iff& (4C - 4C - 3C)x + (4C + 4D - 2C - 4D - 3D) = 6x \\
+        \iff& -3Cx + (2C - 3D) = 6x \\
+        \iff& -3C = 6 \iff C = -2 \\
+        \iff& -4 - 3D = 0 \iff 3D = -4 \iff D = -\frac{4}{3} \\
+        \iff& y_{p_2} = \left( -2x - \frac{4}{3} \right)e^{2x}
+    \end{align*}
+    Therefore $y_p = -\frac{4}{3}x + \frac{23}{9} + \left( -2x - \frac{4}{3} \right)e^{2x}$ so
+    \[
+        y = c_1e^{-x} + c_2e^{3x} - \frac{4}{3}x + \frac{23}{9} + \left( -2x - \frac{4}{3} \right)e^{2x}
+    \]
+    solves the ODE.
+\end{solution}
+
+However, consider the situation where a reasonable guess for a particular solution would be linearly dependent with the basis solutions.
+
+\begin{exercise} \label{linearly_dep_part_sol}
+    Solve $y'' - 5y' + 4y = 8e^x$.
+\end{exercise}
+\begin{solution}
+    For the homogeneous ODE, consider the characteristic polynomial
+    \begin{align*}
+        0 = m^2 - 5m + 4 = (m - 4)(m - 1)
+        &\iff m = 4, m = 1
+    \end{align*}
+    Therefore $y_n = c_1e^x + c_2e^{4x}$.
+    However, $y_p \neq Ae^x$ since it would be linearly independent with $y_n$. We can do something similar to reduction of order and bump up the exponent so let $y_p = Axe^x$ and consider
+    \[
+        y_p' = Ae^x + Axe^x = (Ax + A)e^x \quad \text{and} \quad y_p'' = Ae^x + (Ax + A)e^x = (Ax + 2A)e^x
+    \]
+    Therefore
+    \begin{align*}
+        &y_p'' - 5y_p' + 4y_p = 8e^x \\
+        \iff& (Ax + 2A)e^x - 5(Ax + A)e^x + 4Axe^x = 8e^x \\
+        \iff& (Ax + 2A) - 5(Ax + A) + 4Ax = 8 \\
+        \iff& (A - 5A + 4A)x + (2A - 5A) = 8 \\
+        \iff& -3A = 8 \iff A = -\frac{8}{3} \\
+        \iff& y_p = -\frac{8}{3}xe^x
+    \end{align*}
+    Therefore $y = c_1e^x + c_2e^{4x} - \frac{8}{3}xe^x$ solves the ODE.
+\end{solution}
+
+In page $146$ of the textbook there is a table of particular solution guesses.
+
+\subsection{Annihilation Operators}
+
+\begin{definition}[Annihilation Operator]
+    A linear differential operator $L$ is an \textit{annihilation operator} for $g$ iff $Lg = 0$. 
+\end{definition}
+
+The idea for these is to find what linear homogeneous differential equation $g$ solves.
+
+\begin{exercise}
+    Find annihilation operators for
+    \begin{enumerate}[label = (\alph*)]
+        \item $g(x) = e^{3x}$
+        \item $g(x) = 5x^3 - 2x + 3$
+        \item $g(x) = \cos(2x)$
+    \end{enumerate}
+\end{exercise}
+\begin{solution}
+    ~
+
+    \begin{enumerate}[label = (\alph*)]
+        \item Consider $g'(x) = 3e^{3x}$, then $g'(x) - 3g(x) = 0$ so $D - 3$ is an annihilation operator for $g$.
+        \item We can just differentiate this polynomial $4$ times to get $0$ so $D^4$.
+        \item Consider $g'(x) = -2\sin(2x)$ and $g''(x) = -4\cos(x)$ so $g''(x) + 4g(x) = 0$. Therefore $D^2 + 4$ is an annihilation operator for $g$.
+    \end{enumerate}
+\end{solution}
+
+We can now use this to guess particular solutions when we are stuck.
+
+In \cref{linearly_dep_part_sol} consider that if $g(x) = 8e^x$ then the linear differential operator representation of the equation is $D^2 - 5D + 4 = g$. Since $D - 1$ is an annihilation operator for $g$ we can now apply it to both sides of the equation so
+\[
+    (D - 1)(D^2 - 5D + 4) = (D - 1)g = 0
+\]
+Now we solve the resulting homogeneous ODE by considering its characteristic polynomial so
+\begin{align*}
+    &0 = (m - 1)(m^2 - 5m + 4) = (m - 1)(m - 4)(m - 1) = (m - 1)^2(m - 4) \\
+    \iff& m = 1, m = 4
+\end{align*}
+Therefore, $y = c_1e^x + c_2xe^x + c_3e^{4x}$ solves the resulting homogeneous ODE. Notice that we gain a basis solution of $c_2xe^x$. Therefore the particular solution must be in the form $c_2xe^x$ which is exactly what we saw in \cref{linearly_dep_part_sol}. We can then solve for $c_2$ like in \cref{linearly_dep_part_sol} to find the unique particular solution.
+
 \end{document}
