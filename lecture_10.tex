@@ -1,0 +1,44 @@
+\documentclass[notes]{subfiles}
+
+\begin{document}
+
+\setcounter{section}{11}
+\section{Lecture (2/26/25)}
+
+\subsection{Solving Constant Coefficient Inhomogeneous Linear ODEs}
+Given an order $n$ inhomogeneous linear ODE and consider a particular solution $f_p$ the driver function $g$. The idea is that the particular solution and driver function should be in the same class of function. Therefore, if $g$ is a polynomial, then $f_p$ will also be a polynomial. Similarly, if $g$ is an exponential, then $f_p$ will also be an exponential.
+
+It is important to remember that the particular solution must be linearly independent from the basis solutions.
+
+\begin{exercise}
+    Solve $y'' + 4y' - 2y = 2x^2 - 3x + 6$.
+\end{exercise}
+\begin{solution}
+    First we need to solve the associated homogenous ODE. Therefore consider $y = e^{mx}$ so the characteristic polynomial is
+    \begin{align*}
+        0 = m^2 + 4m - 2
+        &\iff m = \frac{-4 \pm \sqrt{16 + 8}}{2} = -2 \pm \sqrt{6}
+    \end{align*}
+    Therefore the null solution is $y_n = c_1e^{(-2 - \sqrt{6})x} + c_2e^{(-2 + \sqrt{6})x}$. Since the driver is a polynomial then we guess $y_p = Ax^2 + Bx + C$, therefore
+    \[
+        y_p' = 2Ax + B \quad \text{and} \quad y_p'' = 2A
+    \]
+    So we get
+    \begin{align*}
+        &y_p'' + 4y_p' - 2y_p = 2x^2 - 3x + 6 \\
+        \iff& 2A + 4(2Ax + B) - 2(Ax^2 + Bx + C) = 2x^2 - 3x + 6 \\
+        \iff& -2Ax^2 + (8A - 2B)x + (2A + 4B - 2C) = 2x^2 - 3x + 6 \\
+        \iff& -2A = 2 \iff A = -1 \\
+        \iff& -8 - 2B = -3 \iff -2B = 5 \iff B = -\frac{5}{2} \\
+        \iff& -2 - 10 - 2C = 6 \iff -12 - 2C = 6 \iff -2C = 18 \iff C = -9 \\
+    \end{align*}
+    Therefore $y_p = -x^2 - \frac{5}{2}x - 9$ so
+    \[
+        y = c_1e^{(-2 - \sqrt{6})x} + c_2e^{(-2 + \sqrt{6})x} - x^2 - \frac{5}{2}x - 9
+    \]
+    solves the ODE.
+\end{solution}
+
+We can also consider each part of a particular solution separately due to superposition.
+
+\end{document}
