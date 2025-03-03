@@ -71,6 +71,7 @@
     And build the ODE
     \begin{align*}
         x\cos x - \cos x
+        &= y_p'' + y_p \\
         &= (-Ax^2 + (-B + 4C)x + 2A + 2D)\cos x \\
         &+ (-Cx^2 + (-4A - D)x - 2B + 2C)\sin x \\
         &+ (Ax^2 + Bx)\cos x + (Cx^2 + Dx)\sin x \\
@@ -87,6 +88,124 @@
     So the particular solution is $y_p = \frac{1}{4}x\cos x + \left( \frac{1}{4}x^2 - \frac{1}{2}x \right)\sin x$. Therefore
     \[
         y = c_1 \cos x + c_2 \sin x + \frac{1}{4}x\cos x + \left( \frac{1}{4}x^2 - \frac{1}{2}x \right)\sin x
+    \]
+    solves the ODE.
+\end{solution}
+
+\subsection{Variation of Parameters}
+Consider the case where the driver function is not a nice function in terms of exponentials or polynomials. This is where variation of parameters is useful. This is essentially a formula for a particular solution in terms of the coefficients, driver function, and basis solution.
+
+Given an order two linear ODE in the form $y'' + P(x)y' + Q(x)y = f(x)$, then it has basis solutions $y_1$ and $y_2$. Now assume that $y_p = u_1y_1 + u_2y_2$ where $u_1$ and $u_2$ depend on $x$.
+
+Now we find derivatives so
+\begin{align*}
+    y_p' &= u_1'y_1 + u_1y_1' + u_2'y_2 + u_2y_2'
+\end{align*}
+and
+\begin{align*}
+    y_p''
+    &= u_1''y_1 + u_1'y_1' + u_1'y_1' + u_1y_1'' + u_2''y_2 + u_2'y_2' + u_2'y_2' + u_2y_2'' \\
+    &= u_1''y_1 + 2u_1'y_1' + u_1y_1'' + u_2''y_2 + 2u_2'y_2' + u_2y_2''
+\end{align*}
+Building the ODE we get
+\begin{align*}
+    f(x)
+    &= y_p'' + P(x)y_p' + Q(x)y_p \\
+    &= u_1''y_1 + 2u_1'y_1' + u_1y_1'' + u_2''y_2 + 2u_2'y_2' + u_2y_2'' \\ &+ P(x)(u_1'y_1 + u_1y_1' + u_2'y_2 + u_2y_2') + Q(x)(u_1y_1 + u_2y_2) \\
+    &= u_1(y_1'' + P(x)y_1' + Q(x)y_1) + u_2(y_2'' + P(x)y_2' + Q(x)y_2) \\ &+ u_1''y_1 + 2u_1'y_1' + u_2''y_2 + 2u_2'y_2' + P(x)(u_1'y_1 + u_2'y_2) \\
+    &= u_1''y_1 + 2u_1'y_1' + u_2''y_2 + 2u_2'y_2' + P(x)(u_1'y_1 + u_2'y_2) \\
+    &= u_1''y_1 + u_1'y_1' + u_2''y_2 + u_2'y_2' + P(x)(u_1'y_1 + u_2'y_2) + u_1'y_1' + u_2'y_2' \\
+    &= \frac{d}{dx}(u_1'y_1 + u_2'y_2) + P(x)(u_1'y_1 + u_2'y_2) + u_1'y_1' + u_2'y_2'
+\end{align*}
+By black magic we now make an assumption that $u_1'y_1 + u_2'y_2 = 0$, so $u_1'y_1' + u_2'y_2' = f(x)$. Treating everything pointwise with $y_1, y_2$ as coefficients and $u_1', u_2'$ as unknowns, we can now construct an augmented coefficient matrix for this linear system of equations so
+\[
+    \begin{amatrix}{2}
+        y_1 & y_2 & 0 \\
+        y_1' & y_2' & f(x)
+    \end{amatrix}
+\]
+By Cramer's rule then
+\begin{align*}
+    u_1'
+    &= \frac{\begin{vmatrix}
+        0 & y_2 \\
+        f(x) & y_2'
+    \end{vmatrix}}{\begin{vmatrix}
+        y_1 & y_2 \\
+        y_1' & y_2'
+    \end{vmatrix}}
+    = \frac{-y_2f(x)}{\begin{vmatrix}
+        y_1 & y_2 \\
+        y_1' & y_2'
+    \end{vmatrix}}
+\end{align*}
+\begin{align*}
+    u_2'
+    &= \frac{\begin{vmatrix}
+        y_1 & 0 \\
+        y_1' & f(x)
+    \end{vmatrix}}{\begin{vmatrix}
+        y_1 & y_2 \\
+        y_1' & y_2'
+    \end{vmatrix}}
+    = \frac{y_1f(x)}{\begin{vmatrix}
+        y_1 & y_2 \\
+        y_1' & y_2'
+    \end{vmatrix}}
+\end{align*}
+We can now rewrite in terms of the Wro\'nskian so we get
+\begin{equation} \label{var_params}
+    u_1' = \frac{-y_2f(x)}{W(y_1, y_2)} \quad \text{and} \quad u_2' = \frac{y_1f(x)}{W(y_1, y_2)}
+\end{equation}
+
+\begin{exercise}
+    Solve $4y'' + 36y = \csc(3x)$.
+\end{exercise}
+\begin{solution}
+    For the characteristic polynomial of the homogeneous ODE we get
+    \begin{align*}
+        0 = 4m^2 + 36
+        &\iff 0 = m^2 + 9 = (m - 3i)(m + 3i)
+        \iff m = \pm 3i
+    \end{align*}
+    Therefore the basis solutions are $y_1 = \cos(3x)$ and $y_2 = \sin(3x)$.
+    
+    Now we assume $y_p = u_1y_1 + u_2y_2$. To get $f$ we rewrite as $y'' + 9y = \frac{1}{4}\csc(3x)$. Now we need the Wro\'nskian so
+    \begin{align*}
+        W(y_1, y_2)
+        &= \begin{vmatrix}
+            \cos(3x) & \sin(3x) \\
+            -3\sin(3x) & 3\cos(3x)
+        \end{vmatrix}
+        = 3\cos^2(3x) + 3\sin^2(3x)
+        = 3
+    \end{align*}
+    Therefore by \eqref{var_params} we get
+    \begin{align*}
+        u_1
+        &= \int \frac{-y_2f(x)}{W(y_1, y_2)} dx
+        = \int \frac{-\sin(3x)\csc(3x)}{12} dx \\
+        &= -\frac{1}{12} \int \sin(3x)\csc(3x) dx
+        = -\frac{1}{12} \int dx
+        = -\frac{1}{12}x
+    \end{align*}
+    and
+    \begin{align*}
+        u_2
+        &= \int \frac{y_1f(x)}{W(y_1, y_2)} dx
+        = \int \frac{\cos(3x)\csc(3x)}{12} dx \\
+        &= \frac{1}{36} \int \frac{3\cos(3x)}{\sin(3x)} dx
+    \end{align*}
+    Now let $v = \sin(3x)$ so $dv = 3\cos(3x)dx$ therefore
+    \begin{align*}
+        u_2
+        &= \frac{1}{36} \int \frac{1}{v} dv
+        = \frac{1}{36}\ln|v|
+        = \frac{1}{36}\ln\left|\sin(3x)\right|
+    \end{align*}
+    So the particular solution is $y_p = -\frac{1}{12}x\cos(3x) + \frac{1}{36}\ln\left|\sin(3x)\right|\sin(3x)$. Therefore
+    \[
+        y = c_1 \cos(3x) + c_2\sin(3x) - \frac{1}{12}x\cos(3x) + \frac{1}{36}\ln\left|\sin(3x)\right|\sin(3x)
     \]
     solves the ODE.
 \end{solution}
