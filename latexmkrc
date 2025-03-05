@@ -76,8 +76,8 @@ sub makeexternaldocument {
                #    to do this:
                # 2. A copy of the .aux file must be in same directory as .tex file
                #    to satisfy latexmk's definition of a custom dependency.
-             rdb_add_generated( "$sub_doc_output/$base_name.aux" );
-             copy "$sub_doc_output/$base_name.aux", ".";
+            #  rdb_add_generated( "$sub_doc_output/$base_name.aux" );
+            #  copy "$sub_doc_output/$base_name.aux", ".";
         }
         popd;
         return $return;
