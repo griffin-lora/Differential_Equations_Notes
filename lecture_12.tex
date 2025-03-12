@@ -173,7 +173,7 @@ We will now show that Cauchy-Euler equations are really just constant coefficien
     where $x > 0$, then the substitution $x = e^t$ will give a constant coefficient linear ODE in terms of $y$ and $t$.
 \end{theorem}
 
-\begin{corollary}
+\begin{theorem}
     Given a second-order Cauchy-Euler equation in the form
     \[
         ax^2\frac{d^2y}{dx^2} + bx\frac{dy}{dx} + cy = g(x)
@@ -182,30 +182,35 @@ We will now show that Cauchy-Euler equations are really just constant coefficien
     \[
         a\frac{d^2y}{dt^2} + (-a + b)\frac{dy}{dt} + cy = g(e^t)
     \]
-\end{corollary}
-% \begin{proof}
-%     Consider $x = e^t \iff t = \ln x$.
-%     Now we consider the second term so
-%     \begin{align*}
-%         \frac{dy}{dx}
-%         &= \frac{dy}{dt}\frac{dt}{dx}
-%         = \frac{1}{x}\frac{dy}{dt}
-%     \end{align*}
-%     Considering the leading term we get
-%     \begin{align*}
-%         \frac{d^2y}{dx^2}
-%         &= \frac{d}{dx}\left( \frac{dy}{dx} \right)
-%         = \frac{d}{dx}\left( \frac{1}{x}\frac{dy}{dt} \right)
-%         = -\frac{1}{x^2}\frac{dy}{dt} + \frac{1}{x}\frac{d}{dx}\left( \frac{dy}{dt} \right) \\
-%         % absolute black magic happens here
-%         &= \frac{1}{x^2}\left( \frac{d^2y}{dt^2} - \frac{dy}{dt} \right)
-%     \end{align*}
-%     If we build the ODE with these then we get
-%     \begin{align*}
-%         g(e^t)
-%         &= ae^{2t}\left(\frac{1}{x^2}\left( \frac{d^2y}{dt^2} - \frac{dy}{dt} \right)\right) + be^t\left(\frac{1}{x}\frac{dy}{dt}\right) + cy \\
-%         &= 
-%     \end{align*}
-% \end{proof}
+\end{theorem}
+\begin{proof}
+    Consider $x = e^t \iff t = \ln x$.
+    Now we consider the second term so
+    \begin{align*}
+        \frac{dy}{dx}
+        &= \frac{dy}{dt}\frac{dt}{dx}
+        = \frac{1}{x}\frac{dy}{dt}
+    \end{align*}
+    Considering the leading term we get
+    \begin{align*}
+        \frac{d^2y}{dx^2}
+        &= \frac{d}{dx}\left( \frac{dy}{dx} \right)
+        = \frac{d}{dx}\left(\frac{dy}{dt}\frac{dt}{dx} \right)
+        = \frac{dt}{dx}\frac{d}{dx}\left( \frac{dy}{dt} \right) + \frac{dy}{dt}\frac{d}{dx}\left( \frac{dt}{dx} \right) \\
+        &= \frac{dt}{dx}\frac{d^2y}{dxdt} + \frac{dy}{dt}\frac{d^2t}{dx^2}
+        = \frac{dt}{dx}\frac{d^2y}{dxdt}\frac{dt}{dt} + \frac{dy}{dt}\frac{d^2t}{dx^2}
+        = \frac{dt}{dx}\frac{d^2y}{dt^2}\frac{dt}{dx} + \frac{dy}{dt}\frac{d^2t}{dx^2} \\
+        &= \left(\frac{dt}{dx}\right)^2\frac{d^2y}{dt^2} + \frac{d^2t}{dx^2}\frac{dy}{dt}
+        = \frac{1}{x^2}\frac{d^2y}{dt^2} - \frac{1}{x^2}\frac{dy}{dt}
+        = \frac{1}{x^2} \left( \frac{d^2y}{dt^2} - \frac{dy}{dt} \right)
+    \end{align*}
+    If we build the ODE with these then we get
+    \begin{align*}
+        g(e^t)
+        &= ax^2\left(\frac{1}{x^2}\left( \frac{d^2y}{dt^2} - \frac{dy}{dt} \right)\right) + bx\left(\frac{1}{x}\frac{dy}{dt}\right) + cy
+        = a\frac{d^2y}{dt^2} - a\frac{dy}{dt} + b\frac{dy}{dt} + cy \\
+        &= a\frac{d^2y}{dt^2} + (-a + b)\frac{dy}{dt} + cy
+    \end{align*}
+\end{proof}
 
 \end{document}
