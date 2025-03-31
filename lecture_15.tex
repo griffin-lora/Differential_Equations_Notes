@@ -79,7 +79,53 @@ We can view the Laplace transform as a continuous version of a generating functi
     \end{align*}
 \end{solution}
 
-% TODO: Put graph in here
+This is a graph of the Laplace transform from \cref{laplace_transform_base_case}.
+
+\begin{tikzpicture}[scale = 0.8]
+    \begin{axis}[
+        axis lines = middle,
+        smooth,
+        xlabel = $t$,
+        ylabel = $f(t)$,
+        xticklabel = \empty,
+        yticklabel = \empty,
+        grid = both,
+        xmin = -1,
+        xmax = 1,
+        ymin = -1,
+        ymax = 3
+    ]
+        \addplot[
+            domain = -1:1,
+            samples = 2,
+            color = blue
+        ] {1};
+    \end{axis}
+\end{tikzpicture}
+\hspace{0.05\textwidth}
+$\scalebox{2}{\ensuremath{\xrightarrow{\hspace{0.03\textwidth} \mathcal{L} \hspace{0.03\textwidth}}}}$
+\hspace{0.05\textwidth}
+\begin{tikzpicture}[scale = 0.8]
+    \begin{axis}[
+        axis lines = middle,
+        smooth,
+        xlabel = $s$,
+        ylabel = $F(s)$,
+        xticklabel = \empty,
+        yticklabel = \empty,
+        grid = both,
+        xmin = -1,
+        xmax = 10,
+        ymin = -1,
+        ymax = 10
+    ]
+        \addplot[
+            domain = 0.1:10,
+            samples = 75,
+            color = blue
+        ] {1/x};
+    \end{axis}
+\end{tikzpicture}
 
 \begin{exercise}
     Find the Laplace transform of $f$ as $f(t) = t$.
