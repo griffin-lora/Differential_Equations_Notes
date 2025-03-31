@@ -66,8 +66,90 @@ We can view the Laplace transform as a continuous version of a generating functi
     \begin{align*}
         F(s)
         &= \int_0^\infty f(t)e^{-st}dt
-        = 
+        = \lim_{b\to\infty} \int_0^b e^{-st}dt
+        = \lim_{b\to\infty} \frac{-1}{s}e^{-st}\Big|_{t = 0}^{t = b}
+        = -\frac{1}{s} \lim_{b\to\infty} (e^{-sb} - 1)
+    \end{align*}
+    Notice that if $s = 0$, then $F(s)$ does not exist due to the division by zero. Similarly if $s < 0$ then $\lim_{b\to\infty} (e^{-sb} - 1)$ is an infinite limit. Therefore $s > 0$ so
+    \begin{align*}
+        F(s)
+        &= -\frac{1}{s} \lim_{b\to\infty} (e^{-sb} - 1)
+        = -\frac{1}{s}(-1)
+        = \frac{1}{s}
     \end{align*}
 \end{solution}
+
+% TODO: Put graph in here
+
+\begin{exercise}
+    Find the Laplace transform of $f$ as $f(t) = t$.
+\end{exercise}
+\begin{solution}
+    \begin{align*}
+        F(s)
+        &= \int_0^\infty f(t)e^{-st}dt
+        = \lim_{b\to\infty} \int_0^b te^{-st}dt
+    \end{align*}
+    Let $u = t \implies du = dt$ and $dv = e^{-st}dt \impliedby v = \frac{-1}{s}e^{-st}$
+    \begin{align*}
+        F(s)
+        &= \lim_{b\to\infty} \int_0^b te^{-st}dt
+        = \lim_{b\to\infty} \left( -\frac{t}{s}e^{-st}\Big|_{t = 0}^{t = b} + \frac{1}{s} \int_0^b e^{-st}dt \right)
+        = \lim_{b\to\infty} \left( -\frac{t}{s}e^{-st} - \frac{1}{s^2} e^{-st} \right)\Bigg|_{t = 0}^{t = b} \\
+        &= \lim_{b\to\infty} \left( -\frac{b}{s}e^{-sb} - \frac{1}{s^2}e^{-sb} - \frac{1}{s^2} \right)
+    \end{align*}
+    Like in \cref{laplace_transform_base_case} consider $s > 0$
+    \begin{align*}
+        F(s)
+        &= \lim_{b\to\infty} \left( -\frac{b}{s}e^{-sb} - \frac{1}{s^2}e^{-sb} - \frac{1}{s^2} \right)
+        = \lim_{b\to\infty} \left( -\frac{b}{se^{-sb}} - \frac{1}{s^2} \right)
+        = \lim_{b\to\infty} \left( \frac{1}{s^2e^{-sb}} - \frac{1}{s^2} \right)
+        = \frac{1}{s^2}
+    \end{align*}
+\end{solution}
+
+Notice that $1 = t^0$ and $t = t^1$, this motivates the following lemma.
+
+\begin{lemma}
+    The Laplace transform of $f_n$ as $f_n(t) = t^n$ where $n \in \mathbb{Z}$ such that $n \geq 0$ is $F_n$ as $F_n(s) = \frac{n!}{s^{n + 1}}$.
+\end{lemma}
+\begin{proof}
+    We already proved the base case of $n = 0$ in \cref{laplace_transform_base_case}. Therfore we consider our induction hypothesis $F_n(s) = \frac{n!}{s^{n + 1}}$   and want to show that $F_{n + 1}(s) = \frac{(n + 1)!}{s^{n + 2}}$.
+    \begin{align*}
+        F_{n + 1}(s)
+        &= \int_0^\infty f_{n + 1}(t)e^{-st}dt
+        = \lim_{b\to\infty} \int_0^b t^{n + 1}e^{-st}dt
+    \end{align*}
+    Let $u = t^{n + 1} \implies du = (n + 1)t^ndt$ and $dv = e^{-st}dt \impliedby v = \frac{-1}{s}e^{-st}$
+    \begin{align*}
+        F_{n + 1}(s)
+        &= \lim_{b\to\infty} \left( -\frac{t^{n + 1}}{s}e^{-st}\Big|_{t = 0}^{t = b} + \frac{n + 1}{s}\int_0^b t^n e^{-st}dt \right) \\
+        &= \lim_{b\to\infty} \left( -\frac{1}{s}b^{n + 1}e^{-sb} + \frac{n + 1}{s}\int_0^b t^n e^{-st}dt \right)
+    \end{align*}
+    Just like before, we only consider $s > 0$. Considering just $-\frac{1}{s}\lim_{b\to\infty} b^{n + 1}e^{-sb}$ we get
+    \begin{align*}
+        -\frac{1}{s}\lim_{b\to\infty} b^{n + 1}e^{-sb}
+        &= -\frac{1}{s}\lim_{b\to\infty} e^{(n + 1)\ln b}e^{-sb}
+        = -\frac{1}{s}\lim_{b\to\infty} e^{(n + 1)\ln b - sb}
+    \end{align*}
+    Notice that
+    \begin{align*}
+        \lim_{b\to\infty} ((n + 1)\ln b - sb)
+        &= \lim_{b\to\infty} b\left((n + 1)\frac{\ln b}{b} - s\right)
+        = \lim_{b\to\infty} b\left((n + 1)\frac{1}{b} - s\right) \\
+        &= (n + 1) - sb
+        = -\infty
+    \end{align*}
+    Therefore $-\frac{1}{s}\lim_{b\to\infty} e^{(n + 1)\ln b - sb} = 0$ so we get
+    \begin{align*}
+        F_{n + 1}(s)
+        &= \lim_{b\to\infty} \left( -\frac{1}{s}b^{n + 1}e^{-sb} + \frac{n + 1}{s}\int_0^b t^n e^{-st}dt \right)
+        = \frac{n + 1}{s}\lim_{b\to\infty} \int_0^b t^n e^{-st}dt \\
+        &= \frac{n + 1}{s} \int_0^\infty f_n(s) e^{-st}dt
+        = \frac{n + 1}{s} F_n(s)
+        = \frac{n + 1}{s} \left( \frac{n!}{s^{n + 1}} \right)
+        = \frac{(n + 1)!}{s^{n + 2}}
+    \end{align*}
+\end{proof}
 
 \end{document}
