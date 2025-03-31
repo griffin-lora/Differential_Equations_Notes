@@ -1,0 +1,73 @@
+\documentclass[notes]{subfiles}
+\externaldocument{lecture_11}
+
+\begin{document}
+
+\setcounter{section}{15}
+\section{Lecture (3/31/25)}
+
+\subsection{Laplace Transform}
+The Laplace transorm is a special type of operator which does not use the same input variable as output variable. Instead of being able to consider the transform at each point of a function's domain, we consider the entire function as transformed, with no direct connection between the domains.
+
+\begin{definition}[Integral Transform]
+    Given a function $t \mapsto f(t)$, we define an \textit{integral transform} of $f$ as $s \mapsto F(s)$ such that
+    \[
+        F(s) = \int_a^b f(t)K(s, t)dt
+    \]
+    where $a, b$ are constant and $K$ is the \textit{kernel function} of the integral transform.
+\end{definition}
+
+\begin{example}
+    The Fourier transform is an integral transform such that $a = -\infty$, $b = \infty$ and $K(s, t) = e^{2\pi i st}$.
+\end{example}
+
+\begin{definition}[Exponential Type]
+    A univariate function $f$ is of \textit{exponential type} iff $|f(t)| \leq Me^{kt}$ where $M, k \in (0, \infty)$.
+\end{definition}
+
+\begin{example}[Exponential type functions]
+    ~\par
+    \begin{enumerate}[label = (\arabic*)]
+        \item All polynomials are of exponential type.
+        \item $\sin$ and $\cos$ are of exponential type.
+        \item $t \mapsto ce^{at}$ for constants $c, a$
+        \item Any bounded function is of exponential type.
+    \end{enumerate}
+\end{example}
+
+\begin{example}[Non-exponential type functions]
+    ~\par
+    \begin{enumerate}[label = (\arabic*)]
+        \item $t \mapsto \frac{1}{t}$ is not of exponential type since $\lim_{t \to 0^+} \frac{1}{t}$ is an infinite limit.
+        \item $t \mapsto e^{t^2}$
+        \item $\tan$
+        \item $t \mapsto t^t$
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Laplace Transform]
+    Given a function $t \mapsto f(t)$ of exponential type, then the \textit{Laplace transform} $s \mapsto (\mathcal{L}f)(s)$ is the integral transform defined by
+    \[
+        (\mathcal{L}f)(s) = \int_0^\infty f(t)e^{-st}dt
+    \]
+    Note that we usually notate $F = \mathcal{L}f$, $G = \mathcal{L}g$, and so on.
+\end{definition}
+
+\begin{theorem}
+    $\dom \mathcal{L}f = I$ where $I$ is an interval in $\mathbb{R}$.
+\end{theorem}
+
+We can view the Laplace transform as a continuous version of a generating function. With a generating function we get $a_n \mapsto \sum_{n = 0}^\infty a_n x^n$. In comparison, a Laplace transform gives us $f(t) \mapsto \int_0^\infty f(t)e^{-st}dt$.
+
+\begin{exercise} \label{laplace_transform_base_case}
+    Find the Laplace transform of $f$ as $f(t) = 1$.
+\end{exercise}
+\begin{solution}
+    \begin{align*}
+        F(s)
+        &= \int_0^\infty f(t)e^{-st}dt
+        = 
+    \end{align*}
+\end{solution}
+
+\end{document}
