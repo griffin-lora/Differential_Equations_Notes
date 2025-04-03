@@ -74,17 +74,41 @@ The Laplace transform is useful since it can turn a linear IVP into an algebra p
 
 The commutative diagram below describes the general process for using the inverse Laplace transform.
 
-% TODO: Flip bottom arrow
 \[
     \begin{tikzcd}
-        \text{Constant Coefficient Linear IVP} \arrow[swap]{d}{\text{Earlier methods}} \arrow{r}{\mathcal{L}} & \text{Equation involving $s$ and $Y$} \arrow{d}{\text{Solve for function $s \mapsto Y$}} \\%
-        \text{Solution function $t \mapsto y$} \arrow{r}{\mathcal{L}^{-1}} & \text{Rational/exponential function $s \mapsto Y$}
+        {\text{Constant Coefficient Linear IVP}} &&& {\text{Equation involving $s$ and $Y$}} \\
+        \\
+        \\
+        {\text{Solution function $t \mapsto y$}} &&& {\text{Rational/exponential function $s \mapsto Y$}}
+        \arrow["{\mathcal{L}}", from=1-1, to=1-4]
+        \arrow["{\text{Earlier methods}}"', from=1-1, to=4-1]
+        \arrow["{\text{Solve for function $s \mapsto Y$}}", from=1-4, to=4-4]
+        \arrow["{\mathcal{L}^{-1}}"', from=4-4, to=4-1]
     \end{tikzcd}
 \]
 
 \begin{exercise}
     Find the Laplace transform of $f$, $F$ for $f$ as described by the graph
-    
+    \begin{center}%
+    \begin{tikzpicture}
+        \draw[<->] (-1, 0) -- (6, 0) node[right]{$t$};
+        \draw[<->] (0, -1) -- (0, 3) node[above]{$f(t)$};
+        
+        \draw[thick] (-0.2, 2) -- (0.2, 2) node[right] {$c$};
+        \draw[thick] (2, 0) -- (2, 0) node[below] {$a$};
+        \draw[thick] (4, 0) -- (4, 0) node[below] {$b$};
+
+        \draw[line width = 1pt, draw = blue] (0, 0) -- (2, 0);
+        \draw[line width = 1pt, draw = blue, dashed] (2, 0) -- (2, 2);
+        \draw[fill = white, draw = blue] (2, 0) circle (2pt);
+        \filldraw[blue] (2, 2) circle (2pt);
+        \draw[line width = 1pt, draw = blue] (2, 2) -- (4, 2);
+        \draw[line width = 1pt, draw = blue, dashed] (4, 2) -- (4, 0);
+        \draw[fill = white, draw = blue] (4, 2) circle (2pt);
+        \filldraw[blue] (4, 0) circle (2pt);
+        \draw[line width = 1pt, draw = blue] (4, 0) -- (6, 0);
+    \end{tikzpicture}
+    \end{center}
 \end{exercise}
 
 \end{document}
