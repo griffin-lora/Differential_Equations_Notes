@@ -111,4 +111,70 @@ The commutative diagram below describes the general process for using the invers
     \end{center}
 \end{exercise}
 
+\begin{solution}
+    From the graph above, we can say that
+    \[
+        f(t) = \begin{cases}
+            0 & 0 \leq t < a \\
+            c & a \leq t < b \\
+            0 & t \geq b
+        \end{cases}
+    \]
+    Therefore we can consider the Laplace transform so
+    \begin{align*}
+        F(s)
+        &= \int_0^\infty f(t)e^{-st}dt
+        = \int_0^a 0 + \int_a^b ce^{-st}dt + \int_b^\infty 0
+        = \int_a^b ce^{-st}dt
+    \end{align*}
+    If $s = 0$ then
+    \begin{align*}
+        F(s)
+        &= \int_a^b ce^{-st}dt
+        = c\int_a^b dt
+        = c(b - a)
+    \end{align*}
+    If $s \neq 0$ then
+    \begin{align*}
+        F(s)
+        &= \int_a^b ce^{-st}dt
+        = -\frac{c}{s}e^{-st}\Big|_a^b
+        = -\frac{c}{s}(e^{-bs} - e^{-as})
+    \end{align*}
+    Therefore
+    \[
+        F(s) = \begin{cases}
+            c(b - a) & s = 0 \\
+            -\frac{c}{s}(e^{-bs} - e^{-as}) & s \neq 0
+        \end{cases}
+    \]
+\end{solution}
+
+Technically the Laplace transform is not injective. But we are in an engineering class so who cares.
+\begin{definition}[Inverse Laplace Transform]
+    If $\mathcal{L}f = F$ then the \textit{inverse Laplace transform} $\mathcal{L}^{-1}$ is such that $\mathcal{L}^{-1}F = f$.
+\end{definition}
+
+\begin{lemma}
+    The inverse Laplace transform is a linear map.
+\end{lemma}
+\begin{proof}
+    Since the Laplace transform is a linear map, then linear algebra tells us that the inverse of a linear map is also a linear map. Therefore, the inverse Laplace transform is a linear map.
+\end{proof}
+
+Recall that $\mathcal{L}(t^n) = \frac{n!}{s^{n + 1}}$, $\mathcal{L}(e^{at}) = \frac{1}{s - a}$, $\mathcal{L}(\cos(kt)) = \frac{s}{s^2 + k^2}$, and $\mathcal{L}(\sin(kt)) = \frac{k}{s^2 + k^2}$. Therefore, if we want to calculate the inverse Laplace transform, we get the function in terms of the RHS of the equations above.
+
+\begin{exercise}
+    Calculate the inverse Laplace transform $f$ of $F(s) = \frac{1}{s^6} + \frac{1}{s^2 + 7}$.
+\end{exercise}
+\begin{solution}
+    \begin{align*}
+        f(t)
+        &= \mathcal{L}^{-1}\left(\frac{1}{s^6} + \frac{1}{s^2 + 7}\right)
+        = \mathcal{L}^{-1}\left(\frac{1}{s^6}\right) + \mathcal{L}^{-1}\left(\frac{1}{s^2 + 7}\right) \\
+        &= \frac{1}{5!}\mathcal{L}^{-1}\left(\frac{5!}{s^6}\right) + \frac{1}{\sqrt{7}}\mathcal{L}^{-1}\left(\frac{\sqrt{7}}{s^2 + 7}\right)
+        = \frac{1}{5!}t^5 + \frac{1}{\sqrt{7}}\sin(\sqrt{7}t)
+    \end{align*}
+\end{solution}
+
 \end{document}
