@@ -198,4 +198,19 @@ Notice that $1 = t^0$ and $t = t^1$, this motivates the following lemma.
     \end{align*}
 \end{proof}
 
+\begin{exercise}
+    Find the Laplace transform of $f$ as $f(t) = e^{at}$.
+\end{exercise}
+\begin{solution}
+    \begin{align*}
+        F(s)
+        &= \int_0^\infty f(t)e^{-st}dt
+        = \lim_{b\to\infty} \int_0^b e^{-(s - a)t}dt
+        = \lim_{b\to\infty} \frac{-1}{s - a} e^{-(s - a)t}\Big|_{t = 0}^{t = b} \\
+        &= -\frac{1}{s - a} \lim_{b\to\infty} e^{-(s - a)t}\Big|_{t = 0}^{t = b}
+        = -\frac{1}{s - a} \lim_{b\to\infty} (e^{-(s - a)b} - 1) \\
+        &= -\frac{1}{s - a}(-1) = \frac{1}{s - a} \quad \text{If $s > a$}
+    \end{align*}
+\end{solution}
+
 \end{document}
