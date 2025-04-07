@@ -1,5 +1,4 @@
 \documentclass[notes]{subfiles}
-\externaldocument{lecture_11}
 
 \begin{document}
 
@@ -46,15 +45,15 @@ The Laplace transorm is a special type of operator which does not use the same i
 \end{example}
 
 \begin{definition}[Laplace Transform]
-    Given a function $t \mapsto f(t)$ of exponential type, then the \textit{Laplace transform} $s \mapsto (\mathcal{L}f)(s)$ is the integral transform defined by
+    Given a function $t \mapsto f(t)$ of exponential type, then the \textit{Laplace transform} $s \mapsto (\lap f)(s)$ is the integral transform defined by
     \[
-        (\mathcal{L}f)(s) = \int_0^\infty f(t)e^{-st}dt
+        (\lap f)(s) = \int_0^\infty f(t)e^{-st}dt
     \]
-    Note that we usually notate $F = \mathcal{L}f$, $G = \mathcal{L}g$, and so on.
+    Note that we usually notate $F = \lap f$, $G = \lap g$, and so on.
 \end{definition}
 
 \begin{theorem}
-    $\dom \mathcal{L}f = I$ where $I$ is an interval in $\mathbb{R}$.
+    $\dom \lap f = I$ where $I$ is an interval in $\real$.
 \end{theorem}
 
 We can view the Laplace transform as a continuous version of a generating function. With a generating function we get $a_n \mapsto \sum_{n = 0}^\infty a_n x^n$. In comparison, a Laplace transform gives us $f(t) \mapsto \int_0^\infty f(t)e^{-st}dt$.
@@ -103,7 +102,7 @@ This is a graph of the Laplace transform from \cref{laplace_transform_base_case}
     \end{axis}
 \end{tikzpicture}
 \hspace{0.05\textwidth}
-$\scalebox{2}{\ensuremath{\xrightarrow{\hspace{0.03\textwidth} \mathcal{L} \hspace{0.03\textwidth}}}}$
+$\scalebox{2}{\ensuremath{\xrightarrow{\hspace{0.03\textwidth} \lap  \hspace{0.03\textwidth}}}}$
 \hspace{0.05\textwidth}
 \begin{tikzpicture}[scale = 0.8]
     \begin{axis}[

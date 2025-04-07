@@ -7,14 +7,14 @@
 \subsection{Exact Equations}
 
 \begin{definition}[Differential of a two-variate function]
-    Given $S \subseteq \mathbb{R}^2$ and a differentiable function $f\colon S \to \mathbb{R}$, then the \textit{differential} on $f$ at any point $(x, y) \in S$ is defined as
+    Given $S \subseteq \real^2$ and a differentiable function $f\colon S \to \real$, then the \textit{differential} on $f$ at any point $(x, y) \in S$ is defined as
     \[
         df(x, y) = f_x(x, y)dx + f_y(x, y)dy
     \]
 \end{definition}
 
 \begin{definition}[Exact Differential]
-    Given $S \subseteq \mathbb{R}^2$, then a differential form $P(x, y)dx + Q(x, y)dy$ defined on $S$ is an \textit{exact differential} iff there exists some $f\colon S \to \mathbb{R}$ such that $df(x, y) = P(x, y)dx + Q(x, y)dy$.
+    Given $S \subseteq \real^2$, then a differential form $P(x, y)dx + Q(x, y)dy$ defined on $S$ is an \textit{exact differential} iff there exists some $f\colon S \to \real$ such that $df(x, y) = P(x, y)dx + Q(x, y)dy$.
 \end{definition}
 
 \begin{definition}[Exact Differential Equation] ~\par
@@ -26,10 +26,10 @@
 \end{example}
 
 \begin{theorem} \label{greens_theorem}
-    Given a rectangular region $R \subseteq \mathbb{R}^2$ and functions $P, Q\colon R \to \mathbb{R}$ that have continuous partial derivatives, then $P(x, y)dx + Q(x, y)dy$ is an exact differential iff $Q_x(x, y) = P_y(x, y)$
+    Given a rectangular region $R \subseteq \real^2$ and functions $P, Q\colon R \to \real$ that have continuous partial derivatives, then $P(x, y)dx + Q(x, y)dy$ is an exact differential iff $Q_x(x, y) = P_y(x, y)$
 \end{theorem}
 \begin{proof}
-    For the first direction, we are given that $P(x, y)dx + Q(x, y)dy$ is an exact differential, then consider that there exists $f\colon R \to \mathbb{R}$ such that $df(x, y) = P(x, y)dx + Q(x, y)dy$. By Clairaut's theorem $f_{xy}(x, y) = f_{yx}(x, y)$. Now consider that
+    For the first direction, we are given that $P(x, y)dx + Q(x, y)dy$ is an exact differential, then consider that there exists $f\colon R \to \real$ such that $df(x, y) = P(x, y)dx + Q(x, y)dy$. By Clairaut's theorem $f_{xy}(x, y) = f_{yx}(x, y)$. Now consider that
     \begin{align*}
         Q(x, y) = f_y(x, y)
         &\iff Q_x(x, y) = f_{yx}(x, y) = f_{xy}(x, y)
@@ -51,7 +51,7 @@
     % Now consider that
     % \begin{align*}
     %     f_y(x, y)
-    %     &= g'(y) + \frac{\partial}{\partial y} \int P(x, y)dx
+    %     &= g'(y) + \frac{\del}{\del y} \int P(x, y)dx
     %     = g'(y) + \int P_y(x, y)dx \\
     %     &= g'(y) + \int Q_x(x, y)dx
     %     = g'(y) + h(y) + Q(x, y)
@@ -65,10 +65,10 @@
     Consider
     \begin{align*}
         Q_x(x, y)
-        &= \frac{\partial}{\partial x} x
+        &= \frac{\del}{\del x} x
         = 1
         \neq P_y(x, y)
-        = \frac{\partial}{\partial y} \atan y
+        = \frac{\del}{\del y} \atan y
         = \frac{1}{1 + y^2}
     \end{align*}
     Therefore, by \cref{greens_theorem}, we do not have an exact equation
@@ -81,10 +81,10 @@
     Consider
     \begin{align*}
         Q_x(x, y)
-        &= \frac{\partial}{\partial x} (x^3 y^2)
+        &= \frac{\del}{\del x} (x^3 y^2)
         = 3 x^2 y^2
         = P_y(x, y)
-        = \frac{\partial}{\partial y} (x^2 y^3)
+        = \frac{\del}{\del y} (x^2 y^3)
         = 3 x^2 y^2
     \end{align*}
     Therefore, by \cref{greens_theorem}, we have an exact equation
@@ -128,7 +128,7 @@ From \cref{exact_eq_sol}, we can conclude that solutions to exact equations will
 \begin{solution}
     First, consider that
     \begin{align*}
-        Q_x(x, y) = \frac{\partial}{\partial x}(x^2 - 1) = 2x = P_y(x, y) = \frac{\partial}{\partial y}(2xy) = 2x
+        Q_x(x, y) = \frac{\del}{\del x}(x^2 - 1) = 2x = P_y(x, y) = \frac{\del}{\del y}(2xy) = 2x
     \end{align*}
     Therefore, we have an exact equation by \cref{greens_theorem}. So now we know there exists some $f$ such that $df(x, y) = 2xydx + (x^2 - 1)dy$. Now consider that $f_x(x, y) = 2xy$ so we can say $f(x, y) = g(y) + \int 2xydx = g(y) + x^2 y$. Now consider that
     \begin{align*}
@@ -149,9 +149,9 @@ From \cref{exact_eq_sol}, we can conclude that solutions to exact equations will
 \begin{solution}
     First, consider that
     \begin{align*}
-        \frac{\partial}{\partial x} (2xe^{2y} - x\cos(xy) + 2y)
+        \frac{\del}{\del x} (2xe^{2y} - x\cos(xy) + 2y)
         &= 2e^{2y} - \cos(xy) + xy\sin(xy) \\
-        &= \frac{\partial}{\partial y} (e^{2y} - y\cos(xy)) \\
+        &= \frac{\del}{\del y} (e^{2y} - y\cos(xy)) \\
         &= 2e^{2y} - \cos(xy) + xy\sin(xy)
     \end{align*}
     Since we have an exact equation, let $f$ such that $f_x(x, y) = e^{2y} - y\cos(xy)$ and consider
@@ -196,9 +196,9 @@ From \cref{exact_eq_sol}, we can conclude that solutions to exact equations will
     \end{align*}
     Now consider that
     \begin{align*}
-        \frac{\partial}{\partial x} (y - x^2 y)
+        \frac{\del}{\del x} (y - x^2 y)
         &= -2xy
-        = \frac{\partial}{\partial y}(\cos x\sin x - xy^2) = -2xy
+        = \frac{\del}{\del y}(\cos x\sin x - xy^2) = -2xy
     \end{align*}
     Therefore, we let $f$ such that $f_x(x, y) = \cos x\sin x - xy^2$ then consider
     \begin{align*}
@@ -238,9 +238,9 @@ From \cref{exact_eq_sol}, we can conclude that solutions to exact equations will
 \begin{solution}
     First consider that
     \begin{align*}
-        \frac{\partial}{\partial x}\left(\cos x + x\cos y + \frac{y}{y^2 - y - 2}\right)
+        \frac{\del}{\del x}\left(\cos x + x\cos y + \frac{y}{y^2 - y - 2}\right)
         &= -\sin x + \cos y \\
-        &= \frac{\partial}{\partial y}(\sin y - y\sin x) \\
+        &= \frac{\del}{\del y}(\sin y - y\sin x) \\
         &= \cos y - \sin x
     \end{align*}
     Now let $f$ such that $f_x(x, y) = \sin y - y\sin x$ and consider

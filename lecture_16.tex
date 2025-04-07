@@ -11,32 +11,32 @@
 \end{lemma}
 \begin{proof}
     \begin{align*}
-        \mathcal{L}(f + g)(s)
+        \lap (f + g)(s)
         &= \int_0^\infty (f + g)(t)e^{-st}dt
         = \int_0^\infty f(t)e^{-st}dt + \int_0^\infty g(t)e^{-st}dt
-        = \mathcal{L}f(s) + \mathcal{L}g(s)
+        = \lap f(s) + \lap g(s)
     \end{align*}
-    Therefore $\mathcal{L}(f + g) = \mathcal{L}f + \mathcal{L}g$.
+    Therefore $\lap (f + g) = \lap f + \lap g$.
     \begin{align*}
-        \mathcal{L}(cf)(s)
+        \lap (cf)(s)
         &= \int_0^\infty (cf)(t)e^{-st}dt
         = c\int_0^\infty f(t)e^{-st}dt
-        = c\mathcal{L}f(s)
+        = c\lap f(s)
     \end{align*}
-    Therefore $\mathcal{L}(cf) = c\mathcal{L}f$.
+    Therefore $\lap (cf) = c\lap f$.
 \end{proof}
 
 \begin{theorem}
-    $\mathcal{L}(\cos(kt)) = \frac{s}{s^2 + k^2}$ and $\mathcal{L}(\sin(kt)) = \frac{k}{s^2 + k^2}$ for $s > 0$.
+    $\lap (\cos(kt)) = \frac{s}{s^2 + k^2}$ and $\lap (\sin(kt)) = \frac{k}{s^2 + k^2}$ for $s > 0$.
 \end{theorem}
 \begin{proof}
     We are going to get both results for free if we notice that
     \[
-        \mathcal{L}(e^{ikt}) = \mathcal{L}(\cos(kt)) + i\mathcal{L}(\sin(kt))
+        \lap (e^{ikt}) = \lap (\cos(kt)) + i\lap (\sin(kt))
     \]
     We are now going to evaluate the RHS so
     \begin{align*}
-        \mathcal{L}(e^{ikt})
+        \lap (e^{ikt})
         &= \int_0^\infty e^{ikt}e^{-st}dt
         = \lim_{b\to\infty} \int_0^b e^{-(s - ik)t}dt
         = \lim_{b\to\infty} \frac{-1}{s - ik}e^{-(s - ik)t} \Big|_{t = 0}^{t = b} \\
@@ -52,17 +52,17 @@
     \end{align*}
     Since $\lim_{b\to\infty} |e^{-(s - ik)b}| = 0$ then $\lim_{b\to\infty} e^{-(s - ik)b} = 0$ so
     \begin{align*}
-        \mathcal{L}(e^{ikt})
+        \lap (e^{ikt})
         &= -\frac{1}{s - ik} \lim_{b\to\infty} (e^{-(s - ik)b} - 1)
         = \frac{1}{s - ik}
         = \frac{s + ik}{(s - ik)(s + ik)} \\
         &= \frac{s + ik}{s^2 + k^2}
         = \frac{s}{s^2 + k^2} + i\frac{k}{s^2 + k^2}
     \end{align*}
-    Since $\mathcal{L}(e^{ikt}) = \mathcal{L}(\cos(kt)) + i\mathcal{L}(\sin(kt))$ then
+    Since $\lap (e^{ikt}) = \lap (\cos(kt)) + i\lap (\sin(kt))$ then
     \begin{align*}
-        &\mathcal{L}(\cos(kt)) + i\mathcal{L}(\sin(kt)) = \frac{s}{s^2 + k^2} + i\frac{k}{s^2 + k^2} \\
-        \iff& \mathcal{L}(\cos(kt)) = \frac{s}{s^2 + k^2} \quad \text{and} \quad \mathcal{L}(\sin(kt)) = \frac{k}{s^2 + k^2}
+        &\lap (\cos(kt)) + i\lap (\sin(kt)) = \frac{s}{s^2 + k^2} + i\frac{k}{s^2 + k^2} \\
+        \iff& \lap (\cos(kt)) = \frac{s}{s^2 + k^2} \quad \text{and} \quad \lap (\sin(kt)) = \frac{k}{s^2 + k^2}
     \end{align*}
 \end{proof}
 
@@ -79,10 +79,10 @@ The commutative diagram below describes the general process for using the invers
         \\
         \\
         {\text{Solution function $t \mapsto y$}} &&& {\text{Rational/exponential function $s \mapsto Y$}}
-        \arrow["{\mathcal{L}}", from=1-1, to=1-4]
+        \arrow["{\lap }", from=1-1, to=1-4]
         \arrow["{\text{Earlier methods}}"', from=1-1, to=4-1]
         \arrow["{\text{Solve for function $s \mapsto Y$}}", from=1-4, to=4-4]
-        \arrow["{\mathcal{L}^{-1}}"', from=4-4, to=4-1]
+        \arrow["{\lap ^{-1}}"', from=4-4, to=4-1]
     \end{tikzcd}
 \end{equation}
 
@@ -151,7 +151,7 @@ The commutative diagram below describes the general process for using the invers
 
 Technically the Laplace transform is not injective. But we are in an engineering class so who cares.
 \begin{definition}[Inverse Laplace Transform]
-    If $\mathcal{L}f = F$ then the \textit{inverse Laplace transform} $\mathcal{L}^{-1}$ is such that $\mathcal{L}^{-1}F = f$.
+    If $\lap f = F$ then the \textit{inverse Laplace transform} $\lap ^{-1}$ is such that $\lap ^{-1}F = f$.
 \end{definition}
 
 \begin{lemma}
@@ -161,7 +161,7 @@ Technically the Laplace transform is not injective. But we are in an engineering
     Since the Laplace transform is a linear map, then linear algebra tells us that the inverse of a linear map is also a linear map. Therefore, the inverse Laplace transform is a linear map.
 \end{proof}
 
-Recall that $\mathcal{L}(t^n) = \frac{n!}{s^{n + 1}}$, $\mathcal{L}(e^{at}) = \frac{1}{s - a}$, $\mathcal{L}(\cos(kt)) = \frac{s}{s^2 + k^2}$, and $\mathcal{L}(\sin(kt)) = \frac{k}{s^2 + k^2}$. Therefore, if we want to calculate the inverse Laplace transform, we get the function in terms of the RHS of the equations above.
+Recall that $\lap (t^n) = \frac{n!}{s^{n + 1}}$, $\lap (e^{at}) = \frac{1}{s - a}$, $\lap (\cos(kt)) = \frac{s}{s^2 + k^2}$, and $\lap (\sin(kt)) = \frac{k}{s^2 + k^2}$. Therefore, if we want to calculate the inverse Laplace transform, we get the function in terms of the RHS of the equations above.
 
 \begin{exercise}
     Calculate the inverse Laplace transform $f$ of $F(s) = \frac{1}{s^6} + \frac{1}{s^2 + 7}$.
@@ -169,9 +169,9 @@ Recall that $\mathcal{L}(t^n) = \frac{n!}{s^{n + 1}}$, $\mathcal{L}(e^{at}) = \f
 \begin{solution}
     \begin{align*}
         f(t)
-        &= \mathcal{L}^{-1}\left(\frac{1}{s^6} + \frac{1}{s^2 + 7}\right)
-        = \mathcal{L}^{-1}\left(\frac{1}{s^6}\right) + \mathcal{L}^{-1}\left(\frac{1}{s^2 + 7}\right) \\
-        &= \frac{1}{5!}\mathcal{L}^{-1}\left(\frac{5!}{s^6}\right) + \frac{1}{\sqrt{7}}\mathcal{L}^{-1}\left(\frac{\sqrt{7}}{s^2 + 7}\right)
+        &= \lap ^{-1}\left(\frac{1}{s^6} + \frac{1}{s^2 + 7}\right)
+        = \lap ^{-1}\left(\frac{1}{s^6}\right) + \lap ^{-1}\left(\frac{1}{s^2 + 7}\right) \\
+        &= \frac{1}{5!}\lap ^{-1}\left(\frac{5!}{s^6}\right) + \frac{1}{\sqrt{7}}\lap ^{-1}\left(\frac{\sqrt{7}}{s^2 + 7}\right)
         = \frac{1}{5!}t^5 + \frac{1}{\sqrt{7}}\sin(\sqrt{7}t)
     \end{align*}
 \end{solution}
