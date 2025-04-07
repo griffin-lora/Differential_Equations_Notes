@@ -1,5 +1,6 @@
 \documentclass[notes]{subfiles}
 \externaldocument{lecture_11}
+\externaldocument{lecture_16}
 
 \begin{document}
 
@@ -62,6 +63,177 @@
     for $s \geq 0$
 \end{corollary}
 
+\subsection{Step Functions}
+\begin{definition}[Heaviside Step Function]
+    The \textit{Heaviside step function} $\heav\colon \mathbb{R} \to \{ 0, 1 \}$ is defined by
+    \[
+        \heav(t) = \begin{cases}
+            0 & t < 0 \\
+            1 & t \geq 1
+        \end{cases}
+    \]
+\end{definition}
+Below is a graph of the Heaviside step function
 
+\begin{center}%
+\begin{tikzpicture}
+    \draw[<->] (-3, 0) -- (3, 0) node[right]{$t$};
+    \draw[<->] (0, -1) -- (0, 3) node[above]{$\heav(t)$};
+    
+    \draw[thick] (0.2, 2) -- (-0.2, 2) node[left] {$1$};
+
+    \draw[line width = 1pt, draw = blue] (-3, 0) -- (0, 0);
+    \draw[line width = 1pt, draw = blue, dashed] (0, 0) -- (0, 2);
+    \draw[fill = white, draw = blue] (0, 0) circle (2pt);
+    \filldraw[blue] (0, 2) circle (2pt);
+    \draw[line width = 1pt, draw = blue, -stealth] (0, 2) -- (3, 2);
+\end{tikzpicture}
+\end{center}
+
+We can shift the graph to the right by $a$ by considering $\heav(t - a)$
+\[
+    \heav(t - a) = \begin{cases}
+        0 & t < a \\
+        1 & t \geq a
+    \end{cases}
+\]
+Which graphs as
+\begin{center}%
+\begin{tikzpicture}
+    \draw[<->] (-3, 0) -- (3, 0) node[right]{$t$};
+    \draw[<->] (0, -1) -- (0, 3) node[above]{$\heav(t - a)$};
+    
+    \draw[thick] (0.2, 2) -- (-0.2, 2) node[left] {$1$};
+    \draw[thick] (1, 0) -- (1, 0) node[below] {$a$};
+
+    \draw[line width = 1pt, draw = blue] (-3, 0) -- (1, 0);
+    \draw[line width = 1pt, draw = blue, dashed] (1, 0) -- (1, 2);
+    \draw[fill = white, draw = blue] (1, 0) circle (2pt);
+    \filldraw[blue] (1, 2) circle (2pt);
+    \draw[line width = 1pt, draw = blue, -stealth] (1, 2) -- (3, 2);
+\end{tikzpicture}
+\end{center}
+
+We can subtract two shifted step functions to get $_{a}\Pi_b(t) = \heav(t - a) - \heav(t - b)$ where $a < b$ which graphs as
+
+\begin{center}%
+\begin{tikzpicture}
+    \draw[<->] (-1, 0) -- (6, 0) node[right]{$t$};
+    \draw[<->] (0, -1) -- (0, 3) node[above]{$_{a}\Pi_b(t)$};
+    
+    \draw[thick] (-0.2, 2) -- (0.2, 2) node[right] {$1$};
+    \draw[thick] (2, 0) -- (2, 0) node[below] {$a$};
+    \draw[thick] (4, 0) -- (4, 0) node[below] {$b$};
+
+    \draw[line width = 1pt, draw = blue] (0, 0) -- (2, 0);
+    \draw[line width = 1pt, draw = blue, dashed] (2, 0) -- (2, 2);
+    \draw[fill = white, draw = blue] (2, 0) circle (2pt);
+    \filldraw[blue] (2, 2) circle (2pt);
+    \draw[line width = 1pt, draw = blue] (2, 2) -- (4, 2);
+    \draw[line width = 1pt, draw = blue, dashed] (4, 2) -- (4, 0);
+    \draw[fill = white, draw = blue] (4, 2) circle (2pt);
+    \filldraw[blue] (4, 0) circle (2pt);
+    \draw[line width = 1pt, draw = blue] (4, 0) -- (6, 0);
+\end{tikzpicture}
+\end{center}
+
+\begin{theorem}
+    Every piecewise function can be written as a sum of step functions.
+\end{theorem}
+
+\begin{exercise}
+    Write 
+    \[
+        f(t) = \begin{cases}
+            t^2 & 0 \leq t < 3 \\
+            -2t + 4 & 3 \leq t < 5 \\
+            e^{-6t} & t \geq 5
+        \end{cases}
+    \]
+    in terms of step functions.
+\end{exercise}
+\begin{solution}
+    First consider the graph of $f$ so
+    \begin{center}%
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = middle,
+            smooth,
+            xlabel = $t$,
+            ylabel = $f(t)$,
+            xticklabel = \empty,
+            yticklabel = \empty,
+            xtick style = {draw= none},
+            ytick style = {draw = none},
+            xmin = -1,
+            xmax = 10,
+            ymin = -7,
+            ymax = 11
+        ]
+            \addplot[
+                domain = 0:3,
+                samples = 25,
+                color = blue
+            ] {x*x};
+            \addplot[
+                domain = 3:5,
+                samples = 2,
+                color = blue
+            ] {-2*x + 4};
+            \addplot[
+                domain = 5:10,
+                samples = 25,
+                color = blue
+            ] {200*e^(-x)};
+            \draw[thick] (3, -0.2) -- (3, 0.2) node[below] {$3$};
+            \draw[thick] (5, -0.2) -- (5, 0.2) node[below] {$5$};
+            \draw[fill = white, draw = blue] (3, 9) circle (2pt);
+            \filldraw[blue] (3, -2) circle (2pt);
+            \draw[fill = white, draw = blue] (5, -6) circle (2pt);
+            \filldraw[blue] (5, 1.34758939982) circle (2pt);
+        \end{axis}
+    \end{tikzpicture}%
+    \end{center}
+    Notice that we can break this down into ${t^2} _{0}\Pi_3(t)$, ${(-2t + 4)}_{3}\Pi_5(t)$, and $e^{-6t}\heav(t - 5)$ so
+    \begin{align*}
+        f(t)
+        &= {t^2} _{0}\Pi_3(t) + {(-2t + 4)}_{3}\Pi_5(t) + e^{-6t}\heav(t - 5) \\
+        &= t^2(\heav(t) - \heav(t - 3)) + (-2t + 4)(\heav(t - 3) - \heav(t - 5)) + e^{-6t}\heav(t - 5) \\
+        &= t^2\heav(t) - t^2\heav(t - 3) - 2t\heav(t - 3) + 2t\heav(t - 5) + 4\heav(t - 3) - 4\heav(t - 5) + e^{-6t}\heav(t - 5) \\
+        &= t^2\heav(t) + (-t^2 - 2t + 4)\heav(t - 3) + (2t - 4 + e^{-6t})\heav(t - 5)
+    \end{align*}
+\end{solution}
+
+\subsection{Using Laplace transforms to solve modeling problems}
+\begin{exercise}
+    A mass of $1\si{\kg}$ is attatched to a spring where $k = 2$ and is submerged in a fluid where $\beta = 3$. The mass is driven by a force $f(t) = 2\sin(\pi t)$. Find $x$ where $t \mapsto x$ with initial conditions at $t = 0$ of $x = 0$, $x' = 1$ using the method 
+    shown in \cref{laplace_solution_diagram}.
+\end{exercise}
+\begin{solution}
+    From \cref{damped_harmonic_oscillator_eq} we have to solve the equation
+    \[
+        x'' + 3x' + 2x = 2\sin(\pi t)
+    \]
+    Therefore
+    \begin{align*}
+        &x'' + 3x' + 2x = 2\sin(\pi t)
+        \iff \mathcal{L}(x'' + 3x' + 2x) = \mathcal{L}(2\sin(\pi t)) \\
+        \iff& s^2 X - sx|_{t = 0} - x'|_{t = 0} + 3(sX - x|_{t = 0}) + 2X = \frac{2\pi}{s^2 + \pi^2} \\
+        \iff& s^2X - 1 + 3sX + 2X = \frac{2\pi}{s^2 + \pi^2} \\
+        \iff& X(s^2 + 3s + 2) = \frac{2\pi}{s^2 + \pi^2} + 1 = \frac{s^2 + \pi^2 + 2\pi}{s^2 + \pi^2} \\
+        \iff& X = \frac{s^2 + \pi^2 + 2\pi}{(s^2 + \pi^2)(s^2 + 3s + 2)}
+    \end{align*}
+    Now we can do partial fraction decomposition so
+    \begin{align*}
+        X
+        &= \frac{s^2 + \pi^2 + 2\pi}{(s^2 + \pi^2)(s + 1)(s + 2)}
+        = \frac{As + B}{s^2 + \pi^2} + \frac{C}{s + 1} + \frac{D}{s + 2} \\
+        &= \frac{As}{s^2 + \pi^2} + \frac{B}{s^2 + \pi^2} + \frac{C}{s + 1} + \frac{D}{s + 2}
+    \end{align*}
+    and find the inverse Laplace transform on both sides so
+    \begin{align*}
+        x = A\cos(\pi t) + \frac{B}{\pi}\sin(\pi t) + Ce^{-t} + De^{-2t}
+    \end{align*}
+\end{solution}
 
 \end{document}

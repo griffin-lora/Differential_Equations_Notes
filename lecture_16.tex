@@ -1,5 +1,4 @@
 \documentclass[notes]{subfiles}
-\externaldocument{lecture_11}
 
 \begin{document}
 
@@ -74,7 +73,7 @@ The Laplace transform is useful since it can turn a linear IVP into an algebra p
 
 The commutative diagram below describes the general process for using the inverse Laplace transform.
 
-\[
+\begin{equation} \label{laplace_solution_diagram}
     \begin{tikzcd}
         {\text{Constant Coefficient Linear IVP}} &&& {\text{Equation involving $s$ and $Y$}} \\
         \\
@@ -85,7 +84,7 @@ The commutative diagram below describes the general process for using the invers
         \arrow["{\text{Solve for function $s \mapsto Y$}}", from=1-4, to=4-4]
         \arrow["{\mathcal{L}^{-1}}"', from=4-4, to=4-1]
     \end{tikzcd}
-\]
+\end{equation}
 
 \begin{exercise}
     Find the Laplace transform of $f$, $F$ for $f$ as described by the graph
