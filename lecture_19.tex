@@ -1,0 +1,165 @@
+\documentclass[notes]{subfiles}
+
+\begin{document}
+
+\setcounter{section}{18}
+\section{Lecture (4/14/25)}
+
+\subsection{Differentiation in The s-Domain}
+\begin{theorem}
+    \[
+        \left( \frac{d}{ds} \right)^n (\lap f(s)) = (-1)^n\lap(t^n f(t))
+    \]
+\end{theorem}
+\begin{proof}
+    First consider
+    \begin{align*}
+        \left( \frac{d}{ds} \right)^n (\lap f(s))
+        &= \left( \frac{d}{ds} \right)^n \int_0^\infty f(t)e^{-st}dt
+        = \int_0^\infty \left( \frac{\del}{\del s} \right)^n f(t)e^{-st}dt
+    \end{align*}
+    We now want to show by induction that
+    \[
+        \left( \frac{\del}{\del s} \right)^n f(t)e^{-st} = (-1)^n t^n f(t)e^{-st}
+    \]
+    For the base case of $n = 0$ then
+    \begin{align*}
+        \left( \frac{\del}{\del s} \right)^0 f(t)e^{-st}
+        &= f(t)e^{-st}
+        = (-1)^0 t^0 f(t)e^{-st}
+    \end{align*}
+    Now we assume our induction hypothesis and consider
+    \begin{align*}
+        \left( \frac{\del}{\del s} \right)^{n + 1} f(t)e^{-st}
+        &= \frac{\del}{\del s} \left( \frac{\del}{\del s} \right)^n f(t)e^{-st}
+        = \frac{\del}{\del s} (-1)^n t^n f(t)e^{-st} \\
+        &= (-1)^{n + 1} t^{n + 1} f(t)e^{-st}
+    \end{align*}
+    Therefore
+    \begin{align*}
+        \left( \frac{d}{ds} \right)^n (\lap f(s))
+        &= \int_0^\infty \left( \frac{\del}{\del s} \right)^n f(t)e^{-st}dt
+        = \int_0^\infty (-1)^n t^n f(t)e^{-st}dt \\
+        &= (-1)^n \int_0^\infty t^n f(t)e^{-st}dt
+        = (-1)^n \lap(t^n f(t))
+    \end{align*}
+\end{proof}
+
+\begin{exercise}
+    Calculate $\lap(t\cos(3t))$.
+\end{exercise}
+\begin{solution}
+    \begin{align*}
+        \lap(t\cos(3t))
+        &= -\frac{d}{ds} \left(\frac{s}{s^2 + 9}\right)
+        = \frac{2s^2 - s^2 - 9}{(s^2 + 9)^2}
+        = \frac{s^2 - 9}{(s^2 + 9)^2}
+    \end{align*}
+\end{solution}
+
+\subsection{Dirac Delta ``Function"}
+\begin{definition}
+    If $\delta_n(t) = \begin{cases}
+        0 & . \\
+        n & |t| \leq \frac{1}{2n}
+    \end{cases}$
+    then we define $\delta$ to be the Dirac-$\delta$ by the limit of the sequence of $\delta_n$'s so $\delta(t) = \lim_{n\to\infty} \delta_n(t)$.
+\end{definition}
+
+\begin{center}%
+\begin{tikzpicture}
+    \draw[<->] (-4, 0) -- (4, 0) node[right]{$t$};
+    \draw[<->] (0, -1) -- (0, 3) node[above]{$\delta_n(t)$};
+    
+    \draw[thick] (-0.2, 2) -- (0.2, 2) node[above] {$n$};
+    \draw[thick] (-2, 0) -- (-2, 0) node[below] {$-\frac{1}{2n}$};
+    \draw[thick] (2, 0) -- (2, 0) node[below] {$\frac{1}{2n}$};
+
+    \draw[line width = 1pt, draw = blue] (-4, 0) -- (-2, 0);
+    \draw[line width = 1pt, draw = blue, dashed] (-2, 0) -- (-2, 2);
+    \draw[fill = white, draw = blue] (-2, 0) circle (2pt);
+    \filldraw[blue] (-2, 2) circle (2pt);
+    \draw[line width = 1pt, draw = blue] (-2, 2) -- (2, 2);
+    \draw[line width = 1pt, draw = blue, dashed] (2, 2) -- (2, 0);
+    \draw[line width = 1pt, draw = blue] (2, 0) -- (4, 0);
+    \draw[fill = white, draw = blue] (2, 0) circle (2pt);
+    \filldraw[blue] (2, 2) circle (2pt);
+\end{tikzpicture}
+\end{center}
+
+Notice that
+\begin{align*}
+    \int_{-\infty}^\infty \delta_n(t)dt
+    &= \int_{-\frac{1}{2n}}^{\frac{1}{2n}} n dt
+    = n\left(\frac{1}{n}\right)
+    = 1
+\end{align*}
+
+\begin{theorem}
+    If $f\colon [a, b] \to \real$ is continuous, $c \in [a, b]$, $\lambda_1 < c$ (or $\lambda_1 = -\infty$), and $\lambda_2 > c$ (or $\lambda_2 = \infty$) then
+    \[
+        \int_{\lambda_1}^{\lambda_2} f(t)\delta(t - c)dt = f(c)
+    \]
+\end{theorem}
+\begin{proof}
+    First consider that
+    \begin{align*}
+        \int_{\lambda_1}^{\lambda_2} f(t)\delta(t - c)dt
+        &= \int_{\lambda_1}^{\lambda_2} \lim_{n\to\infty} \delta_n(t - c) dt
+        = \lim_{n\to\infty} \int_{\lambda_1}^{\lambda_2} f(t) \delta_n(t - c) dt \\
+        &= \lim_{n\to\infty} \int_{c - \frac{1}{2n}}^{c + \frac{1}{2n}} nf(t)dt \qquad \text{By Fatou's Lemma} \\
+        &= \lim_{n\to\infty} n \int_{c - \frac{1}{2n}}^{c + \frac{1}{2n}} f(t)dt
+    \end{align*}
+    If we just evaluated the limit we would get an indeterminate form, so we want to bound the expression so we can use the squeeze theorem.
+
+    Consider that for some $N$ that $c \pm \frac{1}{2n} \in [a, b]$ for $n \geq N$. Therefore, $f$ is continuous on $\left[c - \frac{1}{2n}, c + \frac{1}{2n}\right]$. Then, by the extreme value theorem, $f$ attains a minimum of $m_n = f(\alpha_n)$ and a maximum of $M_n = f(\beta_n)$ on $\left[c - \frac{1}{2n}, c + \frac{1}{2n}\right]$.
+
+    Therefore $m_n \leq f(t) \leq M_n$ for $t \in \left[c - \frac{1}{2n}, c + \frac{1}{2n}\right]$. So we can say
+    \begin{align*}
+        &\int_{c - \frac{1}{2n}}^{c + \frac{1}{2n}} m_n dt \leq \int_{c - \frac{1}{2n}}^{c + \frac{1}{2n}} f(t)dt \leq \int_{c - \frac{1}{2n}}^{c + \frac{1}{2n}} M_n dt \\
+        \iff& \frac{m_n}{n} \leq \int_{c - \frac{1}{2n}}^{c + \frac{1}{2n}} f(t)dt \leq \frac{M_n}{n} \\
+        \iff& m_n \leq n\int_{c - \frac{1}{2n}}^{c + \frac{1}{2n}} f(t)dt \leq M_n
+    \end{align*}
+
+    Now we want to show that $\lim_{n\to\infty} m_n = \lim_{n\to\infty} M_n = f(c)$. \\ Consider that $c - \frac{1}{2n} \leq \alpha_n \leq c + \frac{1}{2n}$. Since $\lim_{n\to\infty} \left(c - \frac{1}{2n}\right) = \lim_{n\to\infty} \left(c + \frac{1}{2n}\right) = c$ then by the squeeze theorem $\lim_{n\to\infty} \alpha_n = c$. Therefore, $\lim_{n\to\infty} m_n = \lim_{n\to\infty} f(\alpha_n) = f\left(\lim_{n\to\infty} \alpha_n\right) = f(c)$. Without loss of generality, $\lim_{n\to\infty} M_n = f(c)$ as well. Therefore, by the squeeze theorem, $\lim_{n\to\infty} n\int_{c - \frac{1}{2n}}^{c + \frac{1}{2n}} f(t)dt = f(c)$.
+\end{proof}
+
+\begin{exercise}
+    Find the value of $\int_0^\infty e^{-\pi t}\delta(t - \pi^2)dt$.
+\end{exercise}
+\begin{solution}
+    \begin{align*}
+        \int_0^\infty e^{-\pi t}\delta(t - \pi^2)dt
+        &= e^{-\pi t}|_{t = \pi^2}
+        = e^{-\pi^3}
+    \end{align*}
+\end{solution}
+
+\begin{theorem}
+    If $c > 0$ then $\lap(\delta(t - c)) = e^{-cs}$.
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+        \lap(\delta(t - c))
+        &= \int_0^\infty \delta(t - c)e^{-st}dt
+        = e^{-st}|_{t = c}
+        = e^{-cs}
+    \end{align*}
+\end{proof}
+
+\begin{exercise}
+    Solve $y'' + y = \delta(t - 2\pi)$ with $t = 0 \implies y = 0 \text{ and } y' = 1$.
+\end{exercise}
+\begin{solution}
+    \begin{align*}
+        &y'' + y = \delta(t - 2\pi) \\
+        \iff& s^2 Y - sy|_{t = 0} - y'|_{t = 0} + Y = e^{-2\pi s} \\
+        \iff& Y(s^2 + 1) = e^{-2\pi s} + 1 \\
+        \iff& Y = \frac{e^{-2\pi s}}{s^2 + 1} + \frac{1}{s^2 + 1} \\
+        \iff& y = \heav(t)\sin t|_{t = t - 2\pi} + \sin t = \heav(t - 2\pi)\sin t + \sin t
+    \end{align*}
+\end{solution}
+
+% TODO: Add graph?
+
+\end{document}
