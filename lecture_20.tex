@@ -1,0 +1,50 @@
+\documentclass[notes]{subfiles}
+
+\begin{document}
+
+\setcounter{section}{19}
+\section{Lecture (4/16/25)}
+
+\subsection{Convolution Theorem}
+\begin{definition}
+    \textit{Convolution} is a binary operation $\ast$ that takes real-valued functions $f$ and $g$ such that
+    \[
+        (f\ast g)(t) = \int_0^t f(u)g(t - u)du
+    \]
+\end{definition}
+
+\begin{lemma}
+    Convolution is commutative.
+\end{lemma}
+\begin{proof}
+    Consider functions $f$ and $g$ so
+    \begin{align*}
+        (f\ast g)(t)
+        &= \int_0^t f(u)g(t - u)du
+    \end{align*}
+    Now let $v = t - u \implies dv = -du \iff u = t - v$ so
+    \begin{align*}
+        (f\ast g)(t)
+        &= \int_0^t f(u)g(t - u)du
+        = -\int_t^0 f(t - v)g(v)dv \\
+        &= \int_0^t g(v)f(t - v)dv
+        = \int_0^t g(u)f(t - u)dv \\
+        &= (g \ast f)(t)
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[Convolution Theorem]
+    If $f$ and $g$ are functions then
+    \[
+        \lap(f \ast g) = (\lap f)(\lap g)
+    \]
+\end{theorem}
+
+\begin{exercise}
+    Calculate $\lap^{-1}\left( \frac{1}{(s^2 + 9)^2} \right)$.
+\end{exercise}
+\begin{solution}
+    
+\end{solution}
+
+\end{document}
