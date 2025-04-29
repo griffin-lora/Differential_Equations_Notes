@@ -7,11 +7,11 @@
 \subsection{Linear Equations}
 
 \begin{definition}[Linear First Order ODE]
-    A first order ODE is \textit{linear} iff it can be written in the form
+    A first order ODE is \textsl{linear} iff it can be written in the form
     \[
         a_1(x)y' + a_2(x)y = g(x)
     \]
-    The \textit{standard form} for a linear first order ODE is
+    The \textsl{standard form} for a linear first order ODE is
     \[
         y' + P(x)y = f(x)
     \]
@@ -20,7 +20,7 @@ We call them linear differential equations because if you have $n$ solutions in 
 Further reading: Linear differential operator
 
 \begin{definition}[Integrating Factor]
-    Given a first order linear ODE in the form $y' + P(x)y = f(x)$, then a function $\mu$ is an \textit{integrating factor} iff $\mu(x) = e^{\int P(x)dx}$
+    Given a first order linear ODE in the form $y' + P(x)y = f(x)$, then a function $\mu$ is an \textsl{integrating factor} iff $\mu(x) = e^{\int P(x)dx}$
 \end{definition}
 
 We can solve any first order linear ODE in this standard form by multiplying through by an integrating factor.
@@ -52,7 +52,7 @@ We can solve any first order linear ODE in this standard form by multiplying thr
 \end{procedure}
 
 \begin{definition}[Transient Term]
-    A term in a solution to a DE is \textit{transient} iff it goes to $0$ as $x \to \infty$ or $x \to -\infty$. We care about these terms since they often have a small contribution to the solution for large (in magnitude) values of $x$.
+    A term in a solution to a DE is \textsl{transient} iff it goes to $0$ as $x \to \infty$ or $x \to -\infty$. We care about these terms since they often have a small contribution to the solution for large (in magnitude) values of $x$.
 \end{definition}
 
 \begin{example}
@@ -60,7 +60,7 @@ We can solve any first order linear ODE in this standard form by multiplying thr
 \end{example}
 
 \begin{definition}[Singular Point]
-    Given a first order linear ODE in the form $y' = P(x)y = f(x)$, then $x_0$ is a \textit{singular point} iff $P$ is undefined or discontinuous at $x_0$. In effect, $P$ is poorly behaved as $x \to x_0$
+    Given a first order linear ODE in the form $y' = P(x)y = f(x)$, then $x_0$ is a \textsl{singular point} iff $P$ is undefined or discontinuous at $x_0$. In effect, $P$ is poorly behaved as $x \to x_0$
 \end{definition}
 
 \begin{exercise}
