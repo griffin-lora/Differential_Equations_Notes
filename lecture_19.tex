@@ -2,7 +2,7 @@
 
 \begin{document}
 
-\setcounter{section}{18}
+\setcounter{section}{20}
 \section{Lecture (4/14/25)}
 
 \subsection{Differentiation in The s-Domain}
@@ -105,10 +105,10 @@ Notice that
     First consider that
     \begin{align*}
         \int_{\lambda_1}^{\lambda_2} f(t)\delta(t - c)dt
-        &= \int_{\lambda_1}^{\lambda_2} \lim_{n\to\infty} \delta_n(t - c) dt
-        = \lim_{n\to\infty} \int_{\lambda_1}^{\lambda_2} f(t) \delta_n(t - c) dt \\
-        &= \lim_{n\to\infty} \int_{c - \frac{1}{2n}}^{c + \frac{1}{2n}} nf(t)dt \qquad \text{By Fatou's Lemma} \\
-        &= \lim_{n\to\infty} n \int_{c - \frac{1}{2n}}^{c + \frac{1}{2n}} f(t)dt
+        &= \int_{\lambda_1}^{\lambda_2} \lim_{n\to\infty} f(t) \delta_n(t - c) dt \\
+        &= \lim_{n\to\infty} \int_{\lambda_1}^{\lambda_2} f(t) \delta_n(t - c) dt \qquad \text{By Fatou's Lemma} \\
+        &= \lim_{n\to\infty} \int_{c - \frac{1}{2n}}^{c + \frac{1}{2n}} nf(t)dt
+        = \lim_{n\to\infty} n \int_{c - \frac{1}{2n}}^{c + \frac{1}{2n}} f(t)dt
     \end{align*}
     If we just evaluated the limit we would get an indeterminate form, so we want to bound the expression so we can use the squeeze theorem.
 
@@ -135,9 +135,9 @@ Notice that
     \end{align*}
 \end{solution}
 
-\begin{theorem}
+\begin{corollary}
     If $c > 0$ then $\lap(\delta(t - c)) = e^{-cs}$.
-\end{theorem}
+\end{corollary}
 \begin{proof}
     \begin{align*}
         \lap(\delta(t - c))
